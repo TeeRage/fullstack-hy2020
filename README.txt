@@ -1,4 +1,4 @@
-# Full Stack open 2020
+#Full Stack open 2020
 
 ## Sisältö
 Tämä repositio on osa *Helsingin Yliopiston Full Stack open 2020* -kurssia.
