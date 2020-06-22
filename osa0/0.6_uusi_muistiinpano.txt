@@ -1,0 +1,11 @@
+title 0.6: Uusi muistiinpano
+
+note over selain:
+Pyyntö kohdistuu osoitteeseen new_note_spa
+ja se sisältää JSON-muodossa olevan uuden muistiinpanon, 
+johon kuuluu sekä sisältö (content), että aikaleima (date):
+{content: "viesti", date: "2020-06-22T13:34:00.708Z"}
+end note
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin-->selain: Statuskoodi 201 created
