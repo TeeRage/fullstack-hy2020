@@ -1,17 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+
+const App = (props) => {
+  
+  const [hyva, setHyva] = useState(0)
+  const [neutraali, setNeutraali] = useState(0)
+  const [huono, setHuono] = useState(0)
+
+  const handleHyvaClick = () => {
+    setHyva(hyva + 1)
+  }
+
+  const handleNeutraaliClick = () => {
+    setNeutraali(neutraali + 1)
+  }
+
+  const handleHuonoClick = () => {
+    setHuono(huono + 1)
+  }
+
+  return (
+    <div>
+      <h1>Anna meille palautetta</h1>
+      <div>        
+        <Button onClick={handleHyvaClick} text='Hyvä' />
+        <Button onClick={handleNeutraaliClick} text='Neutraali' />
+        <Button onClick={handleHuonoClick} text='Huono' />        
+      </div>
+      <h1>Tilastot</h1>
+      <p>Hyvä {hyva}</p>
+      <p>Neutraali {neutraali}</p>
+      <p>Huono {huono}</p>
+    </div>
+  )
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />, 
   document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+)
