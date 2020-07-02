@@ -8,21 +8,25 @@ const Button = ({ onClick, text }) => (
 )
 
 const App = (props) => {
-  
+
   const [hyva, setHyva] = useState(0)
   const [neutraali, setNeutraali] = useState(0)
-  const [huono, setHuono] = useState(0)
+  const [huono, setHuono] = useState(0) 
+  const [kpl, setKpl] = useState(0)
 
   const handleHyvaClick = () => {
     setHyva(hyva + 1)
+    setKpl(kpl + 1)
   }
 
   const handleNeutraaliClick = () => {
     setNeutraali(neutraali + 1)
+    setKpl(kpl + 1)
   }
 
   const handleHuonoClick = () => {
     setHuono(huono + 1)
+    setKpl(kpl + 1)
   }
 
   return (
@@ -31,12 +35,16 @@ const App = (props) => {
       <div>        
         <Button onClick={handleHyvaClick} text='Hyvä' />
         <Button onClick={handleNeutraaliClick} text='Neutraali' />
-        <Button onClick={handleHuonoClick} text='Huono' />        
+        <Button onClick={handleHuonoClick} text='Huono' />
       </div>
+
       <h1>Tilastot</h1>
       <p>Hyvä {hyva}</p>
       <p>Neutraali {neutraali}</p>
       <p>Huono {huono}</p>
+      <p>Yhteensä {kpl}</p>      
+      <p>Keskiarvo {(hyva - huono)/kpl}</p>
+      <p>Positiivisia {hyva/kpl*100} %</p>
     </div>
   )
 }
