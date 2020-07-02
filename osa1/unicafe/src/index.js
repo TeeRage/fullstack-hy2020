@@ -9,16 +9,27 @@ const Button = ({ onClick, text }) => (
 
 //1.8: unicafe step3
 const Statistics = (props) => {
-  return (
-    <div>
-      <p>Hyvä {props.hyva}</p>
-      <p>Neutraali {props.neutraali}</p>
-      <p>Huono {props.huono}</p>
-      <p>Yhteensä {props.kpl}</p>      
-      <p>Keskiarvo {(props.hyva - props.huono)/props.kpl}</p>
-      <p>Positiivisia {props.hyva/props.kpl*100} %</p>
-    </div>
-  )
+
+  if (props.kpl == 0){
+    return (
+      <div>
+        <p>Palautetta ei ole vielä annettu</p>
+      </div>
+    )
+  }
+
+  else {
+    return (
+      <div>
+        <p>Hyvä {props.hyva}</p>
+        <p>Neutraali {props.neutraali}</p>
+        <p>Huono {props.huono}</p>
+        <p>Yhteensä {props.kpl}</p>      
+        <p>Keskiarvo {(props.hyva - props.huono)/props.kpl}</p>
+        <p>Positiivisia {props.hyva/props.kpl*100} %</p>
+      </div>
+    )
+  }
 }
 
 const App = (props) => {
