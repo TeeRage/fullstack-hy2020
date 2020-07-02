@@ -20,12 +20,16 @@ const Statistics = (props) => {
   else {
     return (
       <div>
-        <StatisticLine text = "Hyvä" value = {props.hyva} />
-        <StatisticLine text = "Neutraali" value = {props.neutraali} />
-        <StatisticLine text = "Huono" value = {props.huono} />
-        <StatisticLine text = "Yhteensä" value = {props.kpl} />
-        <StatisticLine text = "Keskiarvo" value = {(props.hyva - props.huono)/props.kpl} />
-        <StatisticLine text = "Positiivisia" value = {props.hyva/props.kpl*100 + ' %' }/>
+        <table>
+          <tbody>
+            <StatisticLine text = "Hyvä" value = {props.hyva} />
+            <StatisticLine text = "Neutraali" value = {props.neutraali} />
+            <StatisticLine text = "Huono" value = {props.huono} />
+            <StatisticLine text = "Yhteensä" value = {props.kpl} />
+            <StatisticLine text = "Keskiarvo" value = {(props.hyva - props.huono)/props.kpl} />
+            <StatisticLine text = "Positiivisia" value = {props.hyva/props.kpl*100 + ' %' }/>
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -33,9 +37,10 @@ const Statistics = (props) => {
 
 const StatisticLine  = (props) => {  
   return (
-    <div>
-      <p>{props.text} {props.value}</p>
-    </div>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>    
   )  
 }
 
@@ -63,15 +68,13 @@ const App = (props) => {
 
   return (
     <div>
-
       <h1>Anna meille palautetta</h1>
       <Button onClick={handleHyvaClick} text='Hyvä' />
       <Button onClick={handleNeutraaliClick} text='Neutraali' />
       <Button onClick={handleHuonoClick} text='Huono' />
 
       <h1>Tilastot</h1>
-      <Statistics hyva = {hyva} neutraali = {neutraali} huono = {huono} kpl = {kpl}/>     
-
+      <Statistics hyva = {hyva} neutraali = {neutraali} huono = {huono} kpl = {kpl}/>
     </div>
   )
 }
