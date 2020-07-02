@@ -1,12 +1,26 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+
 const App = (props) => {
+
   const [selected, setSelected] = useState(0)
+
+  //Nappia painamalla saa uuden satunnaisen anekdootin
+  const nappiClick = () => {
+    let numero = Math.floor(Math.random() * props.anecdotes.length);
+    setSelected(numero)
+  }
 
   return (
     <div>
-      {props.anecdotes[selected]}
+      <p>{props.anecdotes[selected]}</p>
+      <Button onClick={nappiClick} text='Seuraava anekdootti' />
     </div>
   )
 }
