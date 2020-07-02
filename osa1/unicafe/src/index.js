@@ -7,6 +7,20 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 
+//1.8: unicafe step3
+const Statistics = (props) => {
+  return (
+    <div>
+      <p>Hyvä {props.hyva}</p>
+      <p>Neutraali {props.neutraali}</p>
+      <p>Huono {props.huono}</p>
+      <p>Yhteensä {props.kpl}</p>      
+      <p>Keskiarvo {(props.hyva - props.huono)/props.kpl}</p>
+      <p>Positiivisia {props.hyva/props.kpl*100} %</p>
+    </div>
+  )
+}
+
 const App = (props) => {
 
   const [hyva, setHyva] = useState(0)
@@ -31,20 +45,15 @@ const App = (props) => {
 
   return (
     <div>
+
       <h1>Anna meille palautetta</h1>
-      <div>        
-        <Button onClick={handleHyvaClick} text='Hyvä' />
-        <Button onClick={handleNeutraaliClick} text='Neutraali' />
-        <Button onClick={handleHuonoClick} text='Huono' />
-      </div>
+      <Button onClick={handleHyvaClick} text='Hyvä' />
+      <Button onClick={handleNeutraaliClick} text='Neutraali' />
+      <Button onClick={handleHuonoClick} text='Huono' />
 
       <h1>Tilastot</h1>
-      <p>Hyvä {hyva}</p>
-      <p>Neutraali {neutraali}</p>
-      <p>Huono {huono}</p>
-      <p>Yhteensä {kpl}</p>      
-      <p>Keskiarvo {(hyva - huono)/kpl}</p>
-      <p>Positiivisia {hyva/kpl*100} %</p>
+      <Statistics hyva = {hyva} neutraali = {neutraali} huono = {huono} kpl = {kpl}/>     
+
     </div>
   )
 }
