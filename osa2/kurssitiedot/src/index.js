@@ -4,12 +4,15 @@ import ReactDOM from 'react-dom';
 //Yhteenlaskettu tehtävien lukumäärä
 const Total = ({ course }) => {
 
+  //Reducer, luo yhden muuttujan kaikista arrayn muuttujista (summa tässä tapauksessa)
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  
+
+  //Mapataan kurssien tehtävien lukumäärät uudeksi arrayksi
   const tehtavat = course.parts.map(function (kurssi){
     return kurssi.exercises
   } )
 
+  //Käytetään uutta arrayta ja reduceria summan näyttämäiseen
   return(
     <h4>Tehtäviä yhteensä {tehtavat.reduce(reducer)}</h4>
   ) 
