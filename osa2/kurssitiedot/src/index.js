@@ -1,61 +1,82 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Header = ({ course }) => {
-  return (
-    <h1>{course.name}</h1>
-  )
-}
-
+/*
 const Total = ({ course }) => {
   const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
   return(
     <p>Number of exercises {sum}</p>
   ) 
 }
+*/
 
+//Kurssin sisällön renderöinti (saa propsit Content-komponentilta)
 const Part = (props) => {
   return (
-    <p>
-      {props.part.name} {props.part.exercises}
-    </p>    
+    <div> 
+      {props.kurssi.parts.map(kurssi => <p key = {kurssi.id}> {kurssi.name} {kurssi.exercises}</p>)}
+    </div>    
   )
 }
 
+//Kurssin sisällön renderöinti (saa propsit Course-komponentilta)
 const Content = ({ course }) => {
   return (
+    <div> 
+      <Part kurssi={course}/>
+    </div>
+  )
+}
+
+//Kurssin nimen renderöinti (saa propsit Course-komponentilta)
+const Header = ({ course }) => {
+  return (
+    <h1>{course.name}</h1>
+  )
+}
+
+//yksittäisen kurssin muotoilusta huolehtiva komponentti (saa propsit App-komponentilta)
+const Course = ({ course }) => {
+  return (
     <div>
-      <Part part={course.parts[0]} />
-      <Part part={course.parts[1]} />
-      <Part part={course.parts[2]} />
+      <Header course={course} />
+      <Content course={course} />
     </div>
   )
 }
 
 const App = () => {
+
   const course = {
     name: 'Half Stack application development',
+    id: 1,
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'Tietorakenteet ja algoritmit',
+        exercises: 12,
+        id: 3
       },
       {
         name: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 4
       }
     ]
   }
 
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
+      <Course course={course} />
     </div>
   )
 }
