@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-/*
+//Yhteenlaskettu tehtävien lukumäärä
 const Total = ({ course }) => {
-  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  
+  const tehtavat = course.parts.map(function (kurssi){
+    return kurssi.exercises
+  } )
+
   return(
-    <p>Number of exercises {sum}</p>
+    <h4>Tehtäviä yhteensä {tehtavat.reduce(reducer)}</h4>
   ) 
 }
-*/
+
 
 //Kurssin sisällön renderöinti (saa propsit Content-komponentilta)
 const Part = (props) => {
@@ -41,6 +47,7 @@ const Course = ({ course }) => {
     <div>
       <Header course={course} />
       <Content course={course} />
+      <Total course = {course}/>
     </div>
   )
 }
