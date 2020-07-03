@@ -1,46 +1,40 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const Header = (props) => {
+const Header = ({ course }) => {
   return (
-    <div>
-      <h1>{props.olio.name}</h1>
-    </div>
+    <h1>{course.name}</h1>
   )
 }
 
-const Content = (props) => {
-  return (
-    <div>
-      <Part osa={props.olio.parts[0].name} harjoituksia={props.olio.parts[0].exercises}/>
-      <Part osa={props.olio.parts[1].name} harjoituksia={props.olio.parts[1].exercises}/>
-      <Part osa={props.olio.parts[2].name} harjoituksia={props.olio.parts[2].exercises}/>
-    </div>
-  )
+const Total = ({ course }) => {
+  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
+  return(
+    <p>Number of exercises {sum}</p>
+  ) 
 }
 
 const Part = (props) => {
   return (
-    <div>
-      <p>{props.osa} {props.harjoituksia}</p>
-    </div>
+    <p>
+      {props.part.name} {props.part.exercises}
+    </p>    
   )
 }
 
-const Total = (props) => {
+const Content = ({ course }) => {
   return (
     <div>
-      <p>Number of exercises {props.olio.parts[0].exercises + props.olio.parts[1].exercises + props.olio.parts[2].exercises}</p>
+      <Part part={course.parts[0]} />
+      <Part part={course.parts[1]} />
+      <Part part={course.parts[2]} />
     </div>
   )
 }
 
 const App = () => {
-
   const course = {
-
     name: 'Half Stack application development',
-
     parts: [
       {
         name: 'Fundamentals of React',
@@ -59,9 +53,9 @@ const App = () => {
 
   return (
     <div>
-      <Header olio = {course}/>
-      <Content olio = {course} />
-      <Total olio = {course} />
+      <Header course={course} />
+      <Content course={course} />
+      <Total course={course} />
     </div>
   )
 }
