@@ -12,14 +12,12 @@ const App = (props) => {
   const [selected, setSelected] = useState(0)  
   const listaAanet = Array(props.anecdotes.length).fill(0)
   const [aanet, setAanet] = useState(listaAanet)
-
+  
   //Nappi jolla äänestetään anekdoottia
   const aanestaClick = () => {
-    console.log('lista nyt ', aanet)    
     const kopio = aanet.splice(0)
     kopio[selected] += 1
     setAanet(kopio)
-    console.log('kopio ', kopio)
   }
 
   //Napin painallus luo satunnaismuuttujan, jota käytetään anekdootin arpomiseen
@@ -29,10 +27,14 @@ const App = (props) => {
 
   return (
     <div>
+      <h1>Päivän anekdootti</h1>
       <p>{props.anecdotes[selected]}</p>
       <p>Saanut {aanet[selected]} ääntä</p>
       <Button onClick={aanestaClick} text='Äänestä' />
       <Button onClick={seuraavaAnekdoottiClick} text='Seuraava anekdootti' />
+      <h1>Anekdootti, jolla on eniten ääniä</h1>
+      <p>{props.anecdotes[aanet.indexOf(Math.max(...aanet))]}</p>
+      <p>on saanut {Math.max(...aanet)} ääntä</p>
     </div>
   )
 }
