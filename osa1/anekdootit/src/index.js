@@ -9,18 +9,30 @@ const Button = ({ onClick, text }) => (
 
 const App = (props) => {
 
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(0)  
+  const listaAanet = Array(props.anecdotes.length).fill(0)
+  const [aanet, setAanet] = useState(listaAanet)
 
-  //Nappia painamalla saa uuden satunnaisen anekdootin
-  const nappiClick = () => {
-    let numero = Math.floor(Math.random() * props.anecdotes.length);
-    setSelected(numero)
+  //Nappi jolla äänestetään anekdoottia
+  const aanestaClick = () => {
+    console.log('lista nyt ', aanet)    
+    const kopio = aanet.splice(0)
+    kopio[selected] += 1
+    setAanet(kopio)
+    console.log('kopio ', kopio)
+  }
+
+  //Napin painallus luo satunnaismuuttujan, jota käytetään anekdootin arpomiseen
+  const seuraavaAnekdoottiClick = () => {
+    setSelected(Math.floor(Math.random() * props.anecdotes.length))
   }
 
   return (
     <div>
       <p>{props.anecdotes[selected]}</p>
-      <Button onClick={nappiClick} text='Seuraava anekdootti' />
+      <p>Saanut {aanet[selected]} ääntä</p>
+      <Button onClick={aanestaClick} text='Äänestä' />
+      <Button onClick={seuraavaAnekdoottiClick} text='Seuraava anekdootti' />
     </div>
   )
 }
