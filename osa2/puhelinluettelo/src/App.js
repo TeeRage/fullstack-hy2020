@@ -2,21 +2,23 @@ import React, { useState } from 'react'
 
 const Person = ({person }) => {
   return (
-    <p>{person.name}</p>
+    <p>{person.name} {person.number}</p>
   )
 }
 
 const App = () => {
 
-  const [ persons, setPersons] = useState([{ name: 'Arto Hellas' }]) 
-  const [ newName, setNewName ] = useState('moi')
+  const [ persons, setPersons] = useState([{ name: 'Arto Hellas', number: '040 123 456' }]) 
+  const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   //Lisätään henkilö persons-listaan
   const addPerson = (event) => {
     event.preventDefault()
 
     const personObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     //Tarkistetaan, onko henkilö jo listassa
@@ -28,11 +30,17 @@ const App = () => {
       console.log("Nimi lisätty listaan: ", newName)
     }    
     setNewName('')
+    setNewNumber('')
   }
 
   //Asetetaan uusi nimi newName muuttujalle
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
+  }
+
+  //Asetetaan uusi numero newNumber muuttujalle
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -43,6 +51,12 @@ const App = () => {
           name: <input 
             value={newName}
             onChange={handlePersonChange}
+          />
+        </div>
+        <div>
+          number: <input 
+            value={newNumber}
+            onChange={handleNumberChange}
           />
         </div>
         <div>
