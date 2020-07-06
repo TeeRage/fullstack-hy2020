@@ -18,8 +18,15 @@ const App = () => {
     const personObject = {
       name: newName
     }
-  
-    setPersons(persons.concat(personObject))
+
+    //Tarkistetaan, onko henkilö jo listassa
+    if(persons.map(function(henkilo){return henkilo.name}).includes(newName)){
+      window.alert(`${newName} löytyy jo puhelinluettelosta`);
+    }
+    else{
+      setPersons(persons.concat(personObject))
+      console.log("Nimi lisätty listaan: ", newName)
+    }    
     setNewName('')
   }
 
@@ -31,7 +38,6 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
       <form onSubmit = {addPerson}>
         <div>
           name: <input 
