@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-
-const Person = ({person }) => {
-  return (
-    <p>{person.name} {person.number}</p>
-  )
-}
+import Persons from './components/Persons.js'
+import PersonForm from './components/PersonForm.js'
 
 const App = () => {
 
@@ -69,28 +65,12 @@ const App = () => {
       </form>
 
       <h2>Add a new</h2>
-      <form onSubmit = {addPerson}>
-        <div>
-          name: <input 
-            value={newName}
-            onChange={handlePersonChange}
-          />
-        </div>
-        <div>
-          number: <input 
-            value={newNumber}
-            onChange={handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm addPerson={addPerson} newName={newName} handlePersonChange={handlePersonChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
 
       <h2>Numbers</h2>
-      {personsToShow.map((nimi, i) =><Person key ={i} person={nimi}/>)}
+      <Persons personsToShow = {personsToShow}/>
     </div>
   )
 }
 
-export default App
+export default  App
