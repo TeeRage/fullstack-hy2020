@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Persons from './components/Persons.js'
 import PersonForm from './components/PersonForm.js'
+import personService from './services/persons'
 
 const App = () => {
 
@@ -10,14 +11,13 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
 
-  //Haetaan puhelinluettelo axioksella json-serveriltä portista 3001 (db.json sisältää tietokannan)
+  //Haetaan puhelinluettelo json-serveriltä portista 3001 (db.json sisältää tietokannan) käyttämällä personService-moduulia
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
 
@@ -41,10 +41,10 @@ const App = () => {
       //setPersons(persons.concat(personObject))
 
       //Synkronoidaan lisääminen palvelimelle
-      axios
-       .post('http://localhost:3001/persons', personObject)
-       .then(response => {
-        setPersons(persons.concat(response.data))        
+      personService
+      .create(personObject)
+      .then(returnedNote => {
+        setPersons(persons.concat(returnedNote))
       })
 
       console.log("Nimi lisätty listaan: ", newName)
