@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Persons from './components/Persons.js'
 import PersonForm from './components/PersonForm.js'
 import personService from './services/persons'
@@ -13,7 +12,6 @@ const App = () => {
 
   //Haetaan puhelinluettelo json-serveriltä portista 3001 (db.json sisältää tietokannan) käyttämällä personService-moduulia
   useEffect(() => {
-
     personService
       .getAll()
       .then(initialPersons => {
@@ -23,7 +21,7 @@ const App = () => {
 
   console.log('render', persons.length, 'persons')
 
-  //Lisätään henkilö persons-listaan
+  //Henkilön lisääminen puhelinluetteloon
   const addPerson = (event) => {
     event.preventDefault()
 
@@ -32,23 +30,18 @@ const App = () => {
       number: newNumber
     }
 
-    //Tarkistetaan, onko henkilö jo listassa
+    //Tarkistetaan, onko henkilö jo listassa (ei lisätä, jos on)
     if(persons.map(function(henkilo){return henkilo.name}).includes(newName)){
       window.alert(`${newName} löytyy jo puhelinluettelosta`);
     }
     else{
-
-      //setPersons(persons.concat(personObject))
-
       //Synkronoidaan lisääminen palvelimelle
       personService
       .create(personObject)
       .then(returnedNote => {
         setPersons(persons.concat(returnedNote))
       })
-
-      console.log("Nimi lisätty listaan: ", newName)
-
+      console.log("Nimi lisätty puhelinluetteloon: ", newName)
     }
 
     setNewName('')
@@ -71,6 +64,23 @@ const App = () => {
     console.log(newSearch)
   }
 
+  //Metodi henkilön poistamiseksi
+  const delPerson = id => {
+
+    if(window.confirm('Oletko varma')){
+        personService
+        .delPerson(id)
+        .then(response => {
+            personService
+            .getAll()
+            .then(initialPersons => {
+            setPersons(initialPersons)
+        })
+    })
+    console.log("POISTETTU")
+    }        
+  }
+  
   //Filtteröidään näytettävät nimet haun perusteella
   const personsToShow = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
@@ -88,7 +98,7 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} handlePersonChange={handlePersonChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
 
       <h2>Numbers</h2>
-      <Persons personsToShow = {personsToShow}/>
+      <Persons personsToShow = {personsToShow} delPerson = {delPerson}/>
     </div>
   )
 }
