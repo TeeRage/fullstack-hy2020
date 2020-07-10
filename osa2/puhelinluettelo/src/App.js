@@ -23,6 +23,7 @@ const App = () => {
 
   //Henkilön lisääminen puhelinluetteloon
   const addPerson = (event) => {
+
     event.preventDefault()
 
     const personObject = {
@@ -30,10 +31,24 @@ const App = () => {
       number: newNumber
     }
 
-    //Tarkistetaan, onko henkilö jo listassa (ei lisätä, jos on)
+    //Tarkistetaan, onko henkilö jo listassa 
     if(persons.map(function(henkilo){return henkilo.name}).includes(newName)){
-      window.alert(`${newName} löytyy jo puhelinluettelosta`);
-    }
+
+      //Jos henkilö löytyy jo ja käyttäjä haluaa korvata vanhan numeron
+      if(window.confirm('Henkilö on jo puhelinluettelosta. Haluatko korvata vanhan puhelinnumeron?')){
+
+        //Haetaan dublikaatin id-numero, jotta tiedetään minne päivitys tehdään
+        const idNumero = persons[persons.map(function(henkilo){return henkilo.name}).indexOf(newName)].id
+
+        personService
+        .update(idNumero, personObject)
+        .then(response => {
+          setPersons(persons.map(person => person.id !== idNumero ? person : response))
+        })
+
+      console.log("Puhelinnumero muutettu")
+      }    
+    }    
     else{
       //Synkronoidaan lisääminen palvelimelle
       personService
@@ -77,7 +92,7 @@ const App = () => {
             setPersons(initialPersons)
         })
     })
-    console.log("POISTETTU")
+    console.log("Henkilö poistettu puhelinluettelosta")
     }        
   }
   
