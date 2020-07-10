@@ -10,6 +10,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
 
+  //Haetaan puhelinluettelo axioksella json-serveriltä portista 3001 (db.json sisältää tietokannan)
   useEffect(() => {
     console.log('effect')
     axios
@@ -19,7 +20,7 @@ const App = () => {
         setPersons(response.data)
       })
   }, [])
-  
+
   console.log('render', persons.length, 'persons')
 
   //Lisätään henkilö persons-listaan
@@ -36,9 +37,20 @@ const App = () => {
       window.alert(`${newName} löytyy jo puhelinluettelosta`);
     }
     else{
-      setPersons(persons.concat(personObject))
+
+      //setPersons(persons.concat(personObject))
+
+      //Synkronoidaan lisääminen palvelimelle
+      axios
+       .post('http://localhost:3001/persons', personObject)
+       .then(response => {
+        setPersons(persons.concat(response.data))        
+      })
+
       console.log("Nimi lisätty listaan: ", newName)
-    }    
+
+    }
+
     setNewName('')
     setNewNumber('')
   }
