@@ -7,7 +7,7 @@ const Countries = (props) => {
 
     if(props.countriesToShow.length > 1 && props.countriesToShow.length <= 10){
         return (
-            props.countriesToShow.map((nimi, i) => <CountryList key ={i} country={nimi}/>)
+            props.countriesToShow.map((nimi, i) => <CountryList key ={i} country={nimi} setSearch={props.setSearch}/>)
         )
     }
     else if(props.countriesToShow.length === 0){

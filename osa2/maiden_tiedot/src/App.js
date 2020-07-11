@@ -24,6 +24,12 @@ const App = () => {
     console.log("Haku: ", newSearch)
   }
 
+  //Suoraan napista maan tietoihin siirtyminen, laittaa hakukenttään maan nimen
+  const setSearch = (maa) => {    
+    setNewSearch(maa)
+    console.log("Haku: ", newSearch)
+  }
+
   //Filtteröidään näytettävät maat haun perusteella
   const countriesToShow = countries.filter(country => country.name.toLowerCase().includes(newSearch.toLowerCase()))
 
@@ -35,7 +41,7 @@ const App = () => {
           onChange={handleSearch}
         />
       </form>
-      <Countries countriesToShow = {countriesToShow}/>
+      <Countries countriesToShow = {countriesToShow} setSearch={setSearch}/>
     </div>
   )
 }
