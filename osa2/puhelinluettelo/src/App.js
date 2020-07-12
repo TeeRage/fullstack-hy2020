@@ -11,6 +11,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
   const [message, setMessage] = useState(null)
+  const [notifType, setNotifType] = useState('success')
 
   //Haetaan puhelinluettelo json-serveriltä portista 3001 (db.json sisältää tietokannan) käyttämällä personService-moduulia
   useEffect(() => {
@@ -21,12 +22,12 @@ const App = () => {
       })
   }, [])
 
-  console.log('render', persons.length, 'persons')
-
   //Henkilön lisääminen puhelinluetteloon
   const addPerson = (event) => {
 
     event.preventDefault()
+
+    setNotifType('success')
 
     const personObject = {
       name: newName,
@@ -45,36 +46,54 @@ const App = () => {
         personService
         .update(idNumero, personObject)
         .then(response => {
-          setPersons(persons.map(person => person.id !== idNumero ? person : response))
+          setPersons(persons.map(person => person.id !== idNumero ? person : response))          
+          setMessage(`Henkilön '${personObject.name}' puhelinnumero muutettu`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 2000) 
+          console.log(`Henkilön '${personObject.name}' puhelinnumero muutettu`)
         })
-        
-        setMessage(`Henkilön '${personObject.name}' puhelinnumero muutettu`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 2000)      
+        .catch(error => {
+          setNotifType('error')
+          setMessage(`Virhe puhelinluetteloon lisäämisessä`) 
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
+          console.log('Virhe puhelinnnumeron muuttamisessa')
+        })                    
       }    
     }
     else{
-      //Synkronoidaan lisääminen palvelimelle
+      //Uuden henkilön lisääminen: Synkronoidaan palvelimelle
       personService
       .create(personObject)
       .then(returnedNote => {
         setPersons(persons.concat(returnedNote))
+        setMessage(`Henkilö '${personObject.name}' lisätty puhelinluetteloon`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 2000)
+        console.log(`Henkilö '${personObject.name}' lisätty puhelinluetteloon`)
+      })
+      .catch(error => {
+        setNotifType('error')
+        setMessage(`Virhe puhelinluetteloon lisäämisessä`) 
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
+        console.log('Virhe puhelinluetteloon lisäämisessä')
       })      
-      setMessage(`Henkilö '${personObject.name}' lisätty puhelinluetteloon`)
-      setTimeout(() => {
-        setMessage(null)
-      }, 2000)
     }
-
     setNewName('')
     setNewNumber('')
   }
 
   //Metodi henkilön poistamiseksi
   const delPerson = id => {
+
+    setNotifType('success')
   
-    if(window.confirm('Oletko varma')){
+    if(window.confirm('Haluatko varmasti poistaa tämän henkilön puhelinluettelosta?')){
         personService
         .delPerson(id)
         .then(
@@ -82,12 +101,20 @@ const App = () => {
             .getAll()
             .then(initialPersons => {
             setPersons(initialPersons)
+          
+            setMessage(`Henkilö poistettu puhelinluettelosta`)    
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
         })
-      )    
-      setMessage(`Henkilö poistettu puhelinluettelosta`)    
-      setTimeout(() => {
-        setMessage(null)
-      }, 2000)
+        .catch(error => {
+          setNotifType('error')
+          setMessage(`Virhe, poistaminen ei onnistunut`)    
+            setTimeout(() => {
+              setMessage(null)
+            }, 2000)
+        })         
+      )          
     }        
   }
 
@@ -113,17 +140,16 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>      
-      <Notification message = {message}/>
+      <Notification message = {message} notifType = {notifType}/>
       <form>
-        Filter shown with: <input
+        Filter shown with: 
+        <input
           value={newSearch}
           onChange={handleSearch}
         />
       </form>
-
       <h2>Add a new</h2>
       <PersonForm addPerson={addPerson} newName={newName} handlePersonChange={handlePersonChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
-
       <h2>Numbers</h2>
       <Persons personsToShow = {personsToShow} delPerson = {delPerson}/>
     </div>
