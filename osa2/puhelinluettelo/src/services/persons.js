@@ -16,7 +16,7 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-  const delPerson = (id, newObject) => {
+  const delPerson = (id) => {
       return axios.delete(`${baseUrl}/${id}`)
   }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Persons from './components/Persons.js'
 import PersonForm from './components/PersonForm.js'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
 
@@ -9,6 +10,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
+  const [message, setMessage] = useState(null)
 
   //Haetaan puhelinluettelo json-serveriltä portista 3001 (db.json sisältää tietokannan) käyttämällä personService-moduulia
   useEffect(() => {
@@ -45,22 +47,48 @@ const App = () => {
         .then(response => {
           setPersons(persons.map(person => person.id !== idNumero ? person : response))
         })
-
-      console.log("Puhelinnumero muutettu")
+        
+        setMessage(`Henkilön '${personObject.name}' puhelinnumero muutettu`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 2000)      
       }    
-    }    
+    }
     else{
       //Synkronoidaan lisääminen palvelimelle
       personService
       .create(personObject)
       .then(returnedNote => {
         setPersons(persons.concat(returnedNote))
-      })
-      console.log("Nimi lisätty puhelinluetteloon: ", newName)
+      })      
+      setMessage(`Henkilö '${personObject.name}' lisätty puhelinluetteloon`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 2000)
     }
 
     setNewName('')
     setNewNumber('')
+  }
+
+  //Metodi henkilön poistamiseksi
+  const delPerson = id => {
+  
+    if(window.confirm('Oletko varma')){
+        personService
+        .delPerson(id)
+        .then(
+            personService
+            .getAll()
+            .then(initialPersons => {
+            setPersons(initialPersons)
+        })
+      )    
+      setMessage(`Henkilö poistettu puhelinluettelosta`)    
+      setTimeout(() => {
+        setMessage(null)
+      }, 2000)
+    }        
   }
 
   //Asetetaan uusi nimi newName muuttujalle
@@ -78,30 +106,14 @@ const App = () => {
     setNewSearch(event.target.value)
     console.log(newSearch)
   }
-
-  //Metodi henkilön poistamiseksi
-  const delPerson = id => {
-
-    if(window.confirm('Oletko varma')){
-        personService
-        .delPerson(id)
-        .then(response => {
-            personService
-            .getAll()
-            .then(initialPersons => {
-            setPersons(initialPersons)
-        })
-    })
-    console.log("Henkilö poistettu puhelinluettelosta")
-    }        
-  }
   
   //Filtteröidään näytettävät nimet haun perusteella
   const personsToShow = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2>Phonebook</h2>      
+      <Notification message = {message}/>
       <form>
         Filter shown with: <input
           value={newSearch}
