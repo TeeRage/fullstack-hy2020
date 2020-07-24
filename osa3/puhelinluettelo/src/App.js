@@ -26,7 +26,7 @@ const App = () => {
     setNotification({ message, type })
     setTimeout(() => {
       setNotification(null)
-    }, 2000)
+    }, 3000)
   }
 
   //Henkilön lisääminen puhelinluetteloon
@@ -62,14 +62,14 @@ const App = () => {
       //Uuden henkilön lisääminen: Synkronoidaan palvelimelle
       personService
       .create(personObject)
-      .then(returnedNote => {
-        setPersons(persons.concat(returnedNote))
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
         notifyWith(`Henkilö  '${personObject.name}' lisätty puhelinluetteloon`)
         console.log(`Henkilö '${personObject.name}' lisätty puhelinluetteloon`)
       })
       .catch(error => {
-        notifyWith(`Virhe puhelinluetteloon lisäämisessä`, 'error')
-        console.log('Virhe puhelinluetteloon lisäämisessä')
+        console.log('Virhe puhelinluetteloon lisäämisessä: ', error.response.data.error)
+        notifyWith(error.response.data.error, 'error')
       })      
     }
     setNewName('')
