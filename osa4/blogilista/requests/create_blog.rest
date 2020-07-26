@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Blogikirjoitus 3",
+    "author": "Tea Antila",
+    "url": "https://fi.wikipedia.org/wiki/Blogi",
+    "likes": 13
+}
