@@ -13,3 +13,6 @@ Tietokantaan lisätty muutamia blogikirjoituksia.
 
 Sovellukseen on mahdollista lisätä blogeja Postmanilla tai VS Code REST clientilla, sovellus näyttää lisätyt blogit.
 Lisätty VS Code REST clientin testausta varten requests-kansio, jossa testattu lisäämistä ja blogien näyttämistä.
+
+###### 4.2 blogilista, step2
+Sovelluksen koodi jaettu tämän osan teoriaosuuden ohjeiden mukaisesti useaan moduuliin.
