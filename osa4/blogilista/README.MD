@@ -24,3 +24,8 @@ Testejä varten luotu hakemisto tests, jonne lisätty testi dummy.test.js.
 
 List_helper.js tiedostoon määritelty apufunktio dummy, joka saa parametrikseen taulukollisen blogeja ja palauttaa aina luvun 1.
 Varmistettu toimivuus testillä test('dummy returns one')
+
+###### 4.4: apufunktioita ja yksikkötestejä, step2
+Määritelty testausta varten apufunktio totalLikes, joka saa parametrikseen taulukollisen blogeja. 
+Funktio palauttaa blogien yhteenlaskettujen tykkäysten eli likejen määrän.
+Luotu testit totalLikes.test.js, jossa testattu funktiota muutamalla testillä.
