@@ -16,3 +16,11 @@ Lisätty VS Code REST clientin testausta varten requests-kansio, jossa testattu 
 
 ###### 4.2 blogilista, step2
 Sovelluksen koodi jaettu tämän osan teoriaosuuden ohjeiden mukaisesti useaan moduuliin.
+
+###### 4.3: apufunktioita ja yksikkötestejä, step1
+Asennettu testikirjasto jest.
+Luotu tiedosto utils/list_helper.js, jonne sijoitetaan blogilistan käsittelyyn tarkoitettuja apufunktioita. 
+Testejä varten luotu hakemisto tests, jonne lisätty testi dummy.test.js.
+
+List_helper.js tiedostoon määritelty apufunktio dummy, joka saa parametrikseen taulukollisen blogeja ja palauttaa aina luvun 1.
+Varmistettu toimivuus testillä test('dummy returns one')

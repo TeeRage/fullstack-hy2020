@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku master",
+    "test": "jest --verbose"
   },
   "author": "Tea Antila",
   "license": "MIT",
@@ -20,6 +20,10 @@
   },
   "devDependencies": {
     "eslint": "^7.5.0",
+    "jest": "^26.1.0",
     "nodemon": "^2.0.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
