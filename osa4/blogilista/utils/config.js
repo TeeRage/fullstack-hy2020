@@ -1,13 +1,18 @@
 /**
 * Ympäristömuuttujien käsittely.
 * Sovelluksen muut osat pääsevät ympäristömuuttujiin käsiksi importtaamalla konfiguraatiomoduulin.
+* Määritelty erikseen sekä sovelluskehitysympäristön että testausympäristön tietokannan osoite.
 */
 
-/* eslint-disable no-undef */
 require('dotenv').config()
 
 let PORT = process.env.PORT
 let MONGODB_URI = process.env.MONGODB_URI
+
+//Jos testiympäristö, testataan testikannalla
+if (process.env.NODE_ENV === 'test') {
+  MONGODB_URI = process.env.TEST_MONGODB_URI
+} 
 
 module.exports = {
   MONGODB_URI,

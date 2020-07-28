@@ -1,8 +1,9 @@
 # Full Stack open 2020
 ## Osan 4 tehtäväsarja
 
-blogilistasovellus, jonka avulla käyttäjien on mahdollista tallettaa tietoja internetistä löytämistään mielenkiintoisista blogeista. 
+Blogilistasovellus, jonka avulla käyttäjien on mahdollista tallettaa tietoja internetistä löytämistään mielenkiintoisista blogeista. 
 Kustakin blogista talletetaan sen kirjoittaja (author), aihe (title), url sekä blogilistasovelluksen käyttäjien antamien äänien määrä.
+
 
 #### Tehtäväsarjan vaiheet
 
@@ -29,3 +30,16 @@ Varmistettu toimivuus testillä test('dummy returns one')
 Määritelty testausta varten apufunktio totalLikes, joka saa parametrikseen taulukollisen blogeja. 
 Funktio palauttaa blogien yhteenlaskettujen tykkäysten eli likejen määrän.
 Luotu testit totalLikes.test.js, jossa testattu funktiota muutamalla testillä.
+
+###### 4.5*: apufunktioita ja yksikkötestejä, step3
+Määritelty funktio favoriteBlog, joka saa parametrikseen taulukollisen blogeja.
+Funktio selvittää millä blogilla on eniten tykkäyksiä. Jos suosikkeja on monta, funktio palauttaa niistä jonkun.
+
+###### 4.8: blogilistan testit, step 1
+Asennettu cross-env sekä supertest kirjastot ja määritetty suoritusmoodit ympäristömuuttujan NODE_ENV avulla.
+Luotu testausta varten testitietokanta blogilista-test MongoDB:hen.
+Lisätty tests-hakemistoon testi blogs_api.test.js.
+
+Tehty supertest-kirjastolla testit blogilistan osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle. 
+Testattu, että sovellus palauttaa oikean määrän JSON-muotoisia blogeja.
+Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia.
