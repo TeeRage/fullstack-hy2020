@@ -6,14 +6,10 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 
-//Hakee ja näyttää kaikki blogikirjoitukset tietokannasta
-blogsRouter.get('/', (request, response) => {
-
-  Blog
-    .find({})
-    .then(blogs => {
-      response.json(blogs.map(blog => blog.toJSON()))
-    })
+//Hakee ja näyttää kaikki blogikirjoitukset tietokannasta (async/await)
+blogsRouter.get('/', async (request, response) => {
+  const blogs = await Blog.find({})
+  response.json(blogs.map(blog => blog.toJSON()))    
 })
 
 //Hakee yhden blogikirjoituksen id:n perusteella

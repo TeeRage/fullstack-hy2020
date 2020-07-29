@@ -4,7 +4,6 @@
 Blogilistasovellus, jonka avulla käyttäjien on mahdollista tallettaa tietoja internetistä löytämistään mielenkiintoisista blogeista. 
 Kustakin blogista talletetaan sen kirjoittaja (author), aihe (title), url sekä blogilistasovelluksen käyttäjien antamien äänien määrä.
 
-
 #### Tehtäväsarjan vaiheet
 
 ###### 4.1 blogilista, step1
@@ -43,3 +42,8 @@ Lisätty tests-hakemistoon testi blogs_api.test.js.
 Tehty supertest-kirjastolla testit blogilistan osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle. 
 Testattu, että sovellus palauttaa oikean määrän JSON-muotoisia blogeja.
 Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia.
+
+###### 4.10: blogilistan testit, step3
+Tehty testi, joka varmistaa että sovellukseen voi lisätä blogeja osoitteeseen /api/blogs tapahtuvalla HTTP POST -pyynnölle. 
+Testaa myös, että blogien määrä kasvaa yhdellä sekä varmistaa, että oikeansisältöinen blogi on lisätty järjestelmään.
+Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia
