@@ -86,6 +86,32 @@ test('4.10: add one blog to database', async () => {
   expect(contents).toContain('async/await simplifies making async calls')
 })
 
+/**
+ * 4.11*: blogilistan testit, step4
+ * Testi joka varmistaa, että jos kentälle likes ei anneta arvoa, asetetaan sen arvoksi 0.
+ *  Muiden kenttien sisällöstä ei tässä tehtävässä vielä välitetä.
+*/
+test('4.11: blog without likes value is added with 0 likes', async () => {
+
+  //Uusi blogiolio ilman (likes-arvoa) testausta varten
+  const newBlog = {
+    title: 'This blog is not liked at all',
+    author: 'Tea Antila',
+    url: 'www.osoite.fi'
+  }
+  
+  //Lisätään blogi sekä testataan, että lisäys onnistuu (201)
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+
+  //Tarkistetaan, että blogi jonka otsikko on This blog is not liked at all löytyy tietokannasta
+  const response = await api.get('/api/blogs')
+  const contents = response.body.map(r => r.title)
+  expect(contents).toContain('This blog is not liked at all')
+})
+
 //Lopuksi suljetaan yhteys tietokantaan
 afterAll(() => {
   mongoose.connection.close()

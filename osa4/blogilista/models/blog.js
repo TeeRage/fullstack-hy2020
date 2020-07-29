@@ -7,10 +7,22 @@ mongoose.set('useFindAndModify', false)
 
 //Skeema MongoDB:n tietokantaa varten
 const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
+  title: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: false
+  },
+  likes: {
+    type: Number,
+    required: true
+  }
 })
 
 //Selkeyden vuoksi muokataan saatua dokumenttia (ei näytä MongoDB:n omia kenttiä ja selkeytetään id:n näyttämistä)

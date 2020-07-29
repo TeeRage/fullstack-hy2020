@@ -47,3 +47,8 @@ Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia.
 Tehty testi, joka varmistaa että sovellukseen voi lisätä blogeja osoitteeseen /api/blogs tapahtuvalla HTTP POST -pyynnölle. 
 Testaa myös, että blogien määrä kasvaa yhdellä sekä varmistaa, että oikeansisältöinen blogi on lisätty järjestelmään.
 Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia
+
+###### 4.11*: blogilistan testit, step4
+Tehty testi joka varmistaa, että jos kentälle likes ei anneta arvoa, asetetaan sen arvoksi 0. 
+Muiden kenttien sisällöstä ei tässä tehtävässä vielä välitetä.
+Laajennettu ohjelmaa siten, että testi menee läpi (Jos lisätessä ei määritellä likes määrää, asetetaan likes: 0).
