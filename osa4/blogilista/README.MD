@@ -43,6 +43,9 @@ Tehty supertest-kirjastolla testit blogilistan osoitteeseen /api/blogs tapahtuva
 Testattu, että sovellus palauttaa oikean määrän JSON-muotoisia blogeja.
 Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia.
 
+###### Tehtävä 4.9*: blogilistan testit, step 1
+Tehty testi, joka varmistaa että palautettujen blogien identifioivan kentän tulee olla nimeltään id, oletusarvoisestihan tietokantaan talletettujen olioiden tunnistekenttä on _id.
+
 ###### 4.10: blogilistan testit, step3
 Tehty testi, joka varmistaa että sovellukseen voi lisätä blogeja osoitteeseen /api/blogs tapahtuvalla HTTP POST -pyynnölle. 
 Testaa myös, että blogien määrä kasvaa yhdellä sekä varmistaa, että oikeansisältöinen blogi on lisätty järjestelmään.
@@ -52,3 +55,7 @@ Lopuksi refaktoroitu operaatio käyttämään promisejen sijaan async/awaitia
 Tehty testi joka varmistaa, että jos kentälle likes ei anneta arvoa, asetetaan sen arvoksi 0. 
 Muiden kenttien sisällöstä ei tässä tehtävässä vielä välitetä.
 Laajennettu ohjelmaa siten, että testi menee läpi (Jos lisätessä ei määritellä likes määrää, asetetaan likes: 0).
+
+###### 4.12*: blogilistan testit, step5
+Tehty testit blogin lisäämiselle, eli osoitteeseen /api/blogs tapahtuvalle HTTP POST -pyynnölle, joka varmistaa, että jos uusi blogi ei sisällä kenttiä title ja url, pyyntöön vastataan statuskoodilla 400 Bad request.
+Laajennettu ohjelmaa siten, että testi menee läpi.

@@ -1,45 +1,16 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
+const helper = require('./test_helper')
 const app = require('../app')
 const Blog = require('../models/blog')
 
 const api = supertest(app)
 
-//Alustetaan ennen jokaista testiä sopiva testitietokanta
-//Luodaan testeihin sopivat blogit tässä
-const initialBlogs = [
-  {
-    title: 'HTML is easy',
-    author: 'Tea Antila',
-    url: 'www.osoite.fi',
-    likes: 20
-  },
-  {
-    title: 'Browser can execute only Javascript',
-    author: 'Tea Antila',
-    url: 'www.osoite.fi',
-    likes: 5
-  },
-  {
-    title: 'Testiblogi 3',
-    author: 'Tea Antila',
-    url: 'www.osoite.fi',
-    likes: 5
-  }
-]
-
+//Alustetaan ennen jokaista testiä sopiva testitietokanta test_helperin avulla
 //Tyhjennetään vanha kanta ennen testejä ja lisätään edellä luodut blogit
 beforeEach(async () => {
   await Blog.deleteMany({})
-  
-  let blogObject = new Blog(initialBlogs[0])
-  await blogObject.save()
-  
-  blogObject = new Blog(initialBlogs[1])
-  await blogObject.save()
-
-  blogObject = new Blog(initialBlogs[2])
-  await blogObject.save()
+  await Blog.insertMany(helper.initialBlogs)
 })
 
 /**
@@ -52,7 +23,18 @@ test('4.8: all blogs are returned', async () => {
     .get('/api/blogs')
     .expect(200)
     
-  expect(response.body).toHaveLength(initialBlogs.length)
+  expect(response.body).toHaveLength(helper.initialBlogs.length)
+})
+
+/**
+ * Tehtävä 4.9: blogilistan testit, step 1
+ * Testi, joka varmistaa että palautettujen blogien identifioivan kentän tulee olla nimeltään id.
+ * Hakee testitietokannan sisällön ja sieltä ensimmäisen blogin, jonka id:n olemassaolon tarkistaa.
+*/
+test('4.9: blog object has a field named id', async () => {  
+  const allBlogs = await helper.blogsInDb()
+  const blogToView = allBlogs[0]
+  expect(blogToView.id).toBeDefined()
 })
 
 /**
@@ -82,7 +64,7 @@ test('4.10: add one blog to database', async () => {
   const contents = response.body.map(r => r.title)
   
   //Testataan, että blogeja on nyt yksi enemmän kuin initial listassa sekä että uuden blogin otsikko löytyy joukosta
-  expect(response.body).toHaveLength(initialBlogs.length+1)
+  expect(response.body).toHaveLength(helper.initialBlogs.length+1)
   expect(contents).toContain('async/await simplifies making async calls')
 })
 
@@ -110,6 +92,30 @@ test('4.11: blog without likes value is added with 0 likes', async () => {
   const response = await api.get('/api/blogs')
   const contents = response.body.map(r => r.title)
   expect(contents).toContain('This blog is not liked at all')
+})
+
+/**
+ * 4.12*: blogilistan testit, step4
+ * Testi joka varmistaa, että jos uusi blogi ei sisällä kenttiä title ja url, pyyntöön vastataan statuskoodilla 400 Bad request
+ *  Muiden kenttien sisällöstä ei tässä tehtävässä vielä välitetä.
+*/
+test('4.12: blog without title and url content is not added', async () => {
+
+  //Uusi blogiolio ilman titleä sekä url:ää testausta varten
+  const newBlog = {
+    author: 'Tea Antila',
+    likes: 40
+  }
+  
+  //Lisätään blogi sekä testataan, että lisäys ei onnistu (400)
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  //Haetaan tietokannan sisältö ja tarkistetaan, että blogia ei lisätty
+  const response = await api.get('/api/blogs')   
+  expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
 
 //Lopuksi suljetaan yhteys tietokantaan
