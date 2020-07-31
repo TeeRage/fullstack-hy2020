@@ -37,7 +37,33 @@ const totalLikes = (blogs) => {
   return summa
 }
 
+/**
+ * Funktio, joka selvittää millä blogilla on eniten tykkäyksiä
+ * Jos suosikkeja on monta, funktio palauttaa niistä jonkun.
+ * Saa syötteenä arrayn, joka sisältää blogeja.
+ * 
+ * @param {Array} blogs Taulukollinen blogeja
+ */
+const favouriteBlog = (blogs) => {
+
+  //Etsi suurin likes arvo blogeista
+  const maxLikes = Math.max.apply(Math, blogs.map(function(blog) { return blog.likes }))
+
+  //Etsi, mikä blogi täsmää löydettyyn tykkäysten määrään
+  const fav = blogs.find(b => b.likes === maxLikes)
+
+  //Luodaan ja palautetaan olio, jolla on suosikkiblogin tiedot
+  const favBlog = {
+    title: fav.title,
+    author: fav.author,
+    likes: fav.likes
+  }
+
+  return favBlog
+}
+
 module.exports = {
   dummy, 
-  totalLikes
+  totalLikes,
+  favouriteBlog
 }
