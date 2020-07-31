@@ -63,4 +63,8 @@ Laajennettu ohjelmaa siten, että testi menee läpi.
 ###### 4.13 blogilistan laajennus, step1
 Toteutettu sovellukseen mahdollisuus yksittäisen blogin poistoon.
 Käytetty async/awaitia. Operaation HTTP-rajapinnan suhteen käytetty RESTful-käytänteitä.
-Poistamista varten VS Code REST clientin testi delete_glog.rest sekä testi tehty blogs_api.test.js tiedostoon.
+Poistamista varten VS Code REST clientin testi delete_blog.rest sekä testi tehty blogs_api.test.js tiedostoon.
+
+###### 4.14* blogilistan laajennus, step2
+Toteutettu sovellukseen mahdollisuus yksittäisen blogin muokkaamiseen, esim. että likejen lukumäärää voidaan päivittää. Käytetty async/awaitia.
+Muokkaamista varten luotu VS Code REST clientin testi update_blog.rest.

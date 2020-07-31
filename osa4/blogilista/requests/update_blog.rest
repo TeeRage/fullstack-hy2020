@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/5f2165a2dad8dc17cc34c584
+Content-Type: application/json
+
+{
+    "title": "Blogikirjoitus 10",
+    "author": "Tea Antila",
+    "url": "https://fi.wikipedia.org/wiki/Blogi",
+    "likes": 25
+}
