@@ -59,3 +59,8 @@ Laajennettu ohjelmaa siten, että testi menee läpi (Jos lisätessä ei määrit
 ###### 4.12*: blogilistan testit, step5
 Tehty testit blogin lisäämiselle, eli osoitteeseen /api/blogs tapahtuvalle HTTP POST -pyynnölle, joka varmistaa, että jos uusi blogi ei sisällä kenttiä title ja url, pyyntöön vastataan statuskoodilla 400 Bad request.
 Laajennettu ohjelmaa siten, että testi menee läpi.
+
+###### 4.13 blogilistan laajennus, step1
+Toteutettu sovellukseen mahdollisuus yksittäisen blogin poistoon.
+Käytetty async/awaitia. Operaation HTTP-rajapinnan suhteen käytetty RESTful-käytänteitä.
+Poistamista varten VS Code REST clientin testi delete_glog.rest sekä testi tehty blogs_api.test.js tiedostoon.

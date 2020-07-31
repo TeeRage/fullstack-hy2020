@@ -4,7 +4,7 @@ const listHelper = require('../utils/list_helper')
  * Funktio, joka palauttaa blogien yhteenlaskettujen tykkäysten eli likejen määrän.
  * Kolme erilaista testiä, joissa annetaan testattavaksi taulukko blogeista.
  */
-describe('total likes', () => {
+describe('total likes of all blogs in database', () => {
 
   //Tyhjä taulukko
   const emptyList = []
