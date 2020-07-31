@@ -34,6 +34,11 @@ Luotu testit totalLikes.test.js, jossa testattu funktiota muutamalla testillä.
 Määritelty funktio favoriteBlog, joka saa parametrikseen taulukollisen blogeja.
 Funktio selvittää millä blogilla on eniten tykkäyksiä. Jos suosikkeja on monta, funktio palauttaa niistä jonkun.
 
+###### 4.6*: apufunktioita ja yksikkötestejä, step4
+Määritelty funktio mostBlogs joka saa parametrikseen taulukollisen blogeja. 
+Funktio selvittää kirjoittajan, kenellä on eniten blogeja. 
+Funktion paluuarvo kertoo myös ennätysblogaajan blogien määrän.
+
 ###### 4.8: blogilistan testit, step 1
 Asennettu cross-env sekä supertest kirjastot ja määritetty suoritusmoodit ympäristömuuttujan NODE_ENV avulla.
 Luotu testausta varten testitietokanta blogilista-test MongoDB:hen.

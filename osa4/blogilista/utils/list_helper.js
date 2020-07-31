@@ -3,6 +3,9 @@
  * Joukko blogilistan käsittelyyn tarkoitettuja apufunktioita
 */
 
+//Lodash-kirjasto
+var _ = require('lodash')
+
 /**
  * Apufunktioiden toiminnan testaus, palauttaa aina luvun 1
  * 
@@ -61,9 +64,28 @@ const favouriteBlog = (blogs) => {
 
   return favBlog
 }
+/**
+ * Funktio, joka selvittää kirjoittajan, kenellä on eniten blogeja.
+ * Palauttaa olion, joka sisältää kirjoittajan sekä blogien määrän.
+ * 
+ * @param {Array} blogs Taulukollinen blogeja
+ */
+const mostBlogs  = (blogs) => {
+
+  //Lista kirjoittajista ja heidän blogiensa lukumääristä 
+  //{ author: 'Edsger W. Dijkstra', blogs: 3 }, { author: 'Robert C. Martin', blogs: 2 }
+  const authorsList = _.map(_.countBy(blogs, 'author'), (val, key) => ({ author: key, blogs: val }))
+
+  //Hakee eniten blogeja kirjoittaneen kirjailijan ja blogien määrän
+  //{ author: 'Edsger W. Dijkstra', blogs: 3 }
+  const maxBlogs = _.maxBy(authorsList, function(o) { return o.blogs} )
+
+  return maxBlogs
+}
 
 module.exports = {
   dummy, 
   totalLikes,
-  favouriteBlog
+  favouriteBlog,
+  mostBlogs
 }
