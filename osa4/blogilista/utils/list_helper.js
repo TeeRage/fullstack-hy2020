@@ -64,6 +64,7 @@ const favouriteBlog = (blogs) => {
 
   return favBlog
 }
+
 /**
  * Funktio, joka selvittää kirjoittajan, kenellä on eniten blogeja.
  * Palauttaa olion, joka sisältää kirjoittajan sekä blogien määrän.
@@ -83,9 +84,35 @@ const mostBlogs  = (blogs) => {
   return maxBlogs
 }
 
+/**
+ * Funktio, joka selvittää kirjoittajan, kenen blogeilla on eniten tykkäyksiä. 
+ * Funktion paluuarvo kertoo myös suosikkiblogaajan likejen yhteenlasketun määrän.
+ * 
+ * @param {Array} blogs Taulukollinen blogeja
+ */
+const mostLikes  = (blogs) => {
+
+  //Hakee kirjailijat ja laskee yhteen tykkäysten määrät
+  //[{"author": "Edsger W. Dijkstra", "likes": 20}, {"author": "Robert C. Martin", "likes": 11}]
+  const authorsList = _(blogs).groupBy('author').map((obj, key) =>{
+    return{
+      'author': key,
+      'likes': _.sumBy(obj, 'likes')
+    }
+  }).value()
+
+  //Hakee kirjailijaobjektin, kenellä on eniten tykkäyksiä
+  //{author: 'Edsger W. Dijkstra', likes: 20}
+  const mostLiked = _.maxBy(authorsList, function(obj) { return obj.likes} )
+
+  return mostLiked
+}
+
+
 module.exports = {
   dummy, 
   totalLikes,
   favouriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }

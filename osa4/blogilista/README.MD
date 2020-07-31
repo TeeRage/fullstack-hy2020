@@ -39,6 +39,11 @@ Määritelty funktio mostBlogs joka saa parametrikseen taulukollisen blogeja.
 Funktio selvittää kirjoittajan, kenellä on eniten blogeja. 
 Funktion paluuarvo kertoo myös ennätysblogaajan blogien määrän.
 
+###### 4.7*: apufunktioita ja yksikkötestejä, step5
+Määritelty funktio mostLikes joka saa parametrikseen taulukollisen blogeja. 
+Funktio selvittää kirjoittajan, kenen blogeilla on eniten tykkäyksiä. 
+Funktion paluuarvo kertoo myös suosikkiblogaajan likejen yhteenlasketun määrän.
+
 ###### 4.8: blogilistan testit, step 1
 Asennettu cross-env sekä supertest kirjastot ja määritetty suoritusmoodit ympäristömuuttujan NODE_ENV avulla.
 Luotu testausta varten testitietokanta blogilista-test MongoDB:hen.
