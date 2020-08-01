@@ -3,15 +3,23 @@
 * Blogien id:t on talletettu käyttäjien sisälle taulukkona mongo-id:itä.
 */
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
 const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = mongoose.Schema({
   username: {
     type: String,
+    required: true,
+    minlength: 3,
     unique: true
   },
   name: String,
-  passwordHash: String,
+  passwordHash: {
+    type: String,
+    minlength: 3,
+    required: true
+  },
   blogs: [
     {
       type: mongoose.Schema.Types.ObjectId,

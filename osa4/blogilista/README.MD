@@ -87,3 +87,7 @@ Tehty mahdollisuus katsoa kaikkien käyttäjien tiedot sopivalla HTTP-pyynnöll�
 Luotu VS Code REST clientin testit create_user.rest ja get_all_users.rest toiminnallisuuksien testausta varten.
 Luotu muutamia käyttäjiä MongoDB tietokantaan testiksi.
 
+###### 4.16*: blogilistan laajennus, step5
+Laajennettu käyttäjätunnusten luomista siten, että käyttäjätunnuksen sekä salasanan tulee olla olemassa ja vähintään 3 merkkiä pitkiä. Käyttäjätunnuksen on oltava järjestelmässä uniikki.
+Luomisoperaatio palauttaa sopivan statuskoodin ja virheilmoituksen, jos yritetään luoda epävalidi käyttäjä. Käytössä express-async-errors kirjasto. Tehty testit, jotka varmistavat, että virheellisiä käyttäjiä ei luoda, ja että virheellisen käyttäjän luomisoperaatioon vastaus on järkevä statuskoodin ja virheilmoituksen osalta.
+Testejä varten luotu tests/users_api.test.js
