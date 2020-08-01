@@ -2,6 +2,7 @@
  * Testien apufunktio, jossa testitietokannan oliot ja funktio tietokannan sisällön hakemista varten.
  */
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 //Lista blogeista, jotka lisätään testikantaan
 const initialBlogs = [
@@ -31,6 +32,11 @@ const blogsInDb = async () => {
   return blogs.map(blog => blog.toJSON())
 }
 
+const usersInDb = async () => {
+  const users = await User.find({})
+  return users.map(u => u.toJSON())
+}
+
 module.exports = {
-  initialBlogs, blogsInDb
+  initialBlogs, blogsInDb, usersInDb
 }

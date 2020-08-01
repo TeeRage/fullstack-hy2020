@@ -78,3 +78,12 @@ Poistamista varten VS Code REST clientin testi delete_blog.rest sekä testi teht
 ###### 4.14* blogilistan laajennus, step2
 Toteutettu sovellukseen mahdollisuus yksittäisen blogin muokkaamiseen, esim. että likejen lukumäärää voidaan päivittää. Käytetty async/awaitia.
 Muokkaamista varten luotu VS Code REST clientin testi update_blog.rest.
+
+###### 4.15: blogilistan laajennus, step4
+Tehty sovellukseen mahdollisuus luoda käyttäjiä tekemällä HTTP POST -pyyntö osoitteeseen api/users. 
+Käyttäjillä on käyttäjätunnus, salasana ja nimi, skeema on tallennettu models/user.js tiedostoon.
+Luotu oma router tiedostoon controllers/users. Salasanat on tallennettu käyttämällä bcrypt-kirjastoa.
+Tehty mahdollisuus katsoa kaikkien käyttäjien tiedot sopivalla HTTP-pyynnöllä.
+Luotu VS Code REST clientin testit create_user.rest ja get_all_users.rest toiminnallisuuksien testausta varten.
+Luotu muutamia käyttäjiä MongoDB tietokantaan testiksi.
+
