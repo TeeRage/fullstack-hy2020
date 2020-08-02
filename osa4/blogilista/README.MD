@@ -102,3 +102,7 @@ Muokattu kaikkien blogien listausta siten, että blogien yhteydessä näytetää
 Toteutettu järjestelmään token-perustainen autentikointi.
 Asennettu jsonwebtoken-kirjasto, luotu tiedosto controllers/login.js.
 Luotu VS Code REST clientin testi login.rest ja testattu kirjautumisen toimivuutta.
+
+###### 4.19: blogilistan laajennus, step8
+Muutettu blogien lisäämistä siten, että se on mahdollista vain, jos lisäyksen tekevässä HTTP POST -pyynnössä on mukana validi token.
+Tokenin haltija määritellään blogin lisääjäksi.

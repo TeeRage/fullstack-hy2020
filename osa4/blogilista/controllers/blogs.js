@@ -5,6 +5,7 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 //Hakee ja näyttää kaikki blogikirjoitukset tietokannasta (async/await)
 blogsRouter.get('/', async (request, response) => {
@@ -22,11 +23,33 @@ blogsRouter.get('/:id', async (request, response) => {
   }
 })
 
+//Apufunktio tunnistautumista varten, eristää tokenin headerista authorization
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
+
 //Lisää uuden blogikirjoitus tietokantaan (tämä käyttää nextiä ja try catchia ihan vain vertailun vuoksi)
 blogsRouter.post('/', async (request, response, next) => {
 
   const body = request.body
-  const user = await User.findById(body.userId)
+
+  //Käyttäjän varmistaminen tokenin avulla, haetaan token apufunktion avulla
+  const token = getTokenFrom(request)
+  
+  //Dekoodattu tokenolio sisältää kentät username ja id, varmistetaan tokenin oikeellisuus jwt.verify:n avulla
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  //Jos varmistus ei mene läpi: tokenia ei ole tai tokenista dekoodattu olio ei sisällä käyttäjän identiteettiä (eli decodedToken.id ei ole määritelty)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  //Kun pyynnön tekijän identiteetti on varmistettu, haetaan käyttäjän tiedot normaaliin tapaan
+  const user = await User.findById(decodedToken.id)
 
   const blog = new Blog(
     {

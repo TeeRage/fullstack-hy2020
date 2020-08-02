@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer USERIN TOKEN TÄHÄN
 
 {
-    "title": "Yykaakoo",
-    "author": "Nappi",
+    "title": "Tean viides blogi",
+    "author": "Tea",
     "url": "https://fi.wikipedia.org/wiki/Blogi",
-    "likes": 4,
-    "userId": "5f253f10b9f50e3b6467ea99"
+    "likes": 4
 }

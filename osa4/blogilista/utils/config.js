@@ -3,7 +3,6 @@
 * Sovelluksen muut osat pääsevät ympäristömuuttujiin käsiksi importtaamalla konfiguraatiomoduulin.
 * Määritelty erikseen sekä sovelluskehitysympäristön että testausympäristön tietokannan osoite.
 */
-
 require('dotenv').config()
 
 let PORT = process.env.PORT
