@@ -97,3 +97,8 @@ Laajennettu blogia siten, että blogiin tulee tieto sen lisänneestä käyttäj�
 Muokattu blogien lisäystä siten, että blogin lisäämisen yhteydessä määritellään blogin lisääjäksi joku järjestelmän tietokannassa olevista käyttäjistä (esim. ensimmäisenä löytyvä).
 Tässä vaiheessa ei ole väliä kuka käyttäjistä määritellään lisääväksi. Toiminnallisuus viimeistellään tehtävässä 4.19.
 Muokattu kaikkien blogien listausta siten, että blogien yhteydessä näytetään lisääjän tiedot sekä käyttäjien listausta siten, että käyttäjien lisäämät blogit ovat näkyvillä.
+
+###### 4.18: blogilistan laajennus, step7
+Toteutettu järjestelmään token-perustainen autentikointi.
+Asennettu jsonwebtoken-kirjasto, luotu tiedosto controllers/login.js.
+Luotu VS Code REST clientin testi login.rest ja testattu kirjautumisen toimivuutta.
