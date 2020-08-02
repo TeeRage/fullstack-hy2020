@@ -91,3 +91,9 @@ Luotu muutamia käyttäjiä MongoDB tietokantaan testiksi.
 Laajennettu käyttäjätunnusten luomista siten, että käyttäjätunnuksen sekä salasanan tulee olla olemassa ja vähintään 3 merkkiä pitkiä. Käyttäjätunnuksen on oltava järjestelmässä uniikki.
 Luomisoperaatio palauttaa sopivan statuskoodin ja virheilmoituksen, jos yritetään luoda epävalidi käyttäjä. Käytössä express-async-errors kirjasto. Tehty testit, jotka varmistavat, että virheellisiä käyttäjiä ei luoda, ja että virheellisen käyttäjän luomisoperaatioon vastaus on järkevä statuskoodin ja virheilmoituksen osalta.
 Testejä varten luotu tests/users_api.test.js
+
+###### 4.17: blogilistan laajennus, step6
+Laajennettu blogia siten, että blogiin tulee tieto sen lisänneestä käyttäjästä.
+Muokattu blogien lisäystä siten, että blogin lisäämisen yhteydessä määritellään blogin lisääjäksi joku järjestelmän tietokannassa olevista käyttäjistä (esim. ensimmäisenä löytyvä).
+Tässä vaiheessa ei ole väliä kuka käyttäjistä määritellään lisääväksi. Toiminnallisuus viimeistellään tehtävässä 4.19.
+Muokattu kaikkien blogien listausta siten, että blogien yhteydessä näytetään lisääjän tiedot sekä käyttäjien listausta siten, että käyttäjien lisäämät blogit ovat näkyvillä.

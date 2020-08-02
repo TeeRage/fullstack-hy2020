@@ -6,8 +6,20 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
+  const users = await User.find({}).find({}).populate('blogs', { url: '', title: 1, author: '' })
   response.json(users.map(user => user.toJSON()))
+})
+
+//Hakee yhden käyttäjän id:n perusteella, async (käytössä express-async-errors, joten ei tarvi try catchia tai nextia)
+usersRouter.get('/:id', async (request, response) => {
+
+  const user = await User.findById(request.params.id)
+
+  if (user) {
+    response.json(user.toJSON())
+  } else {
+    response.status(404).end()
+  }
 })
 
 //Lisää uuden userin tietokantaan
@@ -31,16 +43,6 @@ usersRouter.post('/', async (request, response) => {
   else{
     const savedUser = await user.save()
     response.status(201).json(savedUser)
-  }
-})
-
-//Hakee yhden käyttäjän id:n perusteella, async (käytössä express-async-errors, joten ei tarvi try catchia tai nextia)
-usersRouter.get('/:id', async (request, response) => {
-  const user = await User.findById(request.params.id)
-  if (user) {
-    response.json(user.toJSON())
-  } else {
-    response.status(404).end()
   }
 })
 

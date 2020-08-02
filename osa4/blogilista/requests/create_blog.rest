@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Blogikirjoitus 10",
-    "author": "Tea Antila",
+    "title": "Yykaakoo",
+    "author": "Nappi",
     "url": "https://fi.wikipedia.org/wiki/Blogi",
-    "likes": 11
+    "likes": 4,
+    "userId": "5f253f10b9f50e3b6467ea99"
 }
