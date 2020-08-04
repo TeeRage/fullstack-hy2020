@@ -10,3 +10,8 @@ Toteutettu frontendiin kirjautumisen mahdollistava toiminnallisuus.
 Jos käyttäjä ei ole kirjautunut, sivulla näytetään pelkästään kirjautumislomake.
 Kirjautuneelle käyttäjälle näytetään kirjautuneen käyttäjän nimi sekä blogien lista.
 Kirjautumisen yhteydessä backendin palauttama token tallennetaan sovelluksen tilaan user.
+
+###### 5.2: blogilistan frontend, step2
+Tehty kirjautumisesta "pysyvä" local storagen avulla. 
+Tehty sovellukseen myös mahdollisuus uloskirjautumiseen.
+Uloskirjautumisen jälkeen selain ei muista kirjautunutta käyttäjää reloadauksen jälkeen.

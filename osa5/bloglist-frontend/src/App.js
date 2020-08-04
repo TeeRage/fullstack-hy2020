@@ -17,6 +17,16 @@ const App = () => {
     )  
   }, [])
 
+  //Tarkistetaan, onko sivulle jo kirjauduttu
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+  }, [])
+
   //Kirjautumispainikkeen toiminto
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -26,6 +36,11 @@ const App = () => {
         username, password,
       })
 
+      //Tallennetaan käyttäjän tiedot selaimen local storageen
+      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
+      //console.log( window.localStorage.getItem('loggedNoteappUser'))
+
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -33,9 +48,9 @@ const App = () => {
       console.log('wrong credentials')
     }
   }
-
+  
   //Sivun ulkoasu, kun käyttäjä on kirjautunut onnistuneesti sisään
-  const blogForm = () => (
+  const blogForm = () => (  
     <div>
      <ul>
        {blogs.map((blog, i) => 
@@ -73,20 +88,26 @@ const App = () => {
     </form>      
   )
 
+  //Uloskirjautumisen toiminto
+  function logout() {
+    window.localStorage.removeItem('loggedNoteappUser')
+    blogService.setToken(user.token)
+    setUser(null)
+    blogService.setToken(null)
+  }
+
   //Sivun ulkoasu, näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut vai ei
   return (
     <div>
-
       <h1>Blogs</h1>
-      
       {user === null ?
-        loginForm() :
-        <div>
+        loginForm() :        
+        <div>          
           <p>{user.name} logged in</p>
-          {blogForm()}
+          <button onClick={()=>logout()}>Logout</button>
+          {blogForm()}          
         </div>
       }
-
     </div>
   )
 }
