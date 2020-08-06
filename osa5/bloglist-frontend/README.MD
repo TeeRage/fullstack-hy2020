@@ -15,3 +15,6 @@ Kirjautumisen yhteydessä backendin palauttama token tallennetaan sovelluksen ti
 Tehty kirjautumisesta "pysyvä" local storagen avulla. 
 Tehty sovellukseen myös mahdollisuus uloskirjautumiseen.
 Uloskirjautumisen jälkeen selain ei muista kirjautunutta käyttäjää reloadauksen jälkeen.
+
+###### 5.3: blogilistan frontend, step3
+Laajennettu sovellusta siten, että kirjautunut käyttäjä voi luoda uusia blogeja.

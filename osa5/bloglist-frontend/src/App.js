@@ -10,6 +10,10 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
 
+  const [newBlogTitle, setNewBlogTitle] = useState('')
+  const [newaAuthorName, setNewAuthorName] = useState('')
+  const [newBlogUrl, setNewBlogUrl] = useState('')
+
   //Haetaan blogit tietokannasta
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -17,7 +21,7 @@ const App = () => {
     )  
   }, [])
 
-  //Tarkistetaan, onko sivulle jo kirjauduttu
+  //Tarkistetaan, onko sivulle jo kirjautunut joku käyttäjä
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
@@ -27,7 +31,7 @@ const App = () => {
     }
   }, [])
 
-  //Kirjautumispainikkeen toiminto
+  //Sisäänkirjautumispainikkeen toiminto
   const handleLogin = async (event) => {
     event.preventDefault()
 
@@ -48,18 +52,79 @@ const App = () => {
       console.log('wrong credentials')
     }
   }
+
+  //Uuden blogin lisäämisen toiminto
+  const createNewBlog = async (event) => {
+
+    event.preventDefault()
+    const blogObject = {
+      title: newBlogTitle,
+      author: newaAuthorName,
+      url: newBlogUrl
+    }
   
+    blogService
+      .create(blogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewBlogTitle('')
+        setNewAuthorName('')
+        setNewBlogUrl('')
+      })
+  }
+  
+  //Uloskirjautumisen toiminto
+  function logout() {
+    window.localStorage.removeItem('loggedNoteappUser')
+    blogService.setToken(user.token)
+    setUser(null)
+    blogService.setToken(null)
+  }
+
   //Sivun ulkoasu, kun käyttäjä on kirjautunut onnistuneesti sisään
   const blogForm = () => (  
-    <div>
-     <ul>
+    <div><br/><br/><br/>
+    <h2>Create new blog</h2>
+      <form onSubmit={createNewBlog}>
+        <div>
+          title
+            <input
+            type="text"
+            value={newBlogTitle}
+            name="Title"
+            onChange={({ target }) => setNewBlogTitle(target.value)}
+          />
+        </div>
+        <div>
+          author
+            <input
+            type="text"
+            value={newaAuthorName}
+            name="Author"
+            onChange={({ target }) => setNewAuthorName(target.value)}
+          />
+        </div>
+        <div>
+          url
+            <input
+            type="text"
+            value={newBlogUrl}
+            name="Url"
+            onChange={({ target }) => setNewBlogUrl(target.value)}
+          />
+        </div><br/>
+        <button type="submit">create</button>
+      </form><br/><br/>
+
+      <h2>Blogs</h2>
+      <ul>
        {blogs.map((blog, i) => 
          <Blog
            key={i}
            blog={blog}
          />
        )}
-     </ul>
+      </ul>
     </div>
   )
 
@@ -88,15 +153,7 @@ const App = () => {
     </form>      
   )
 
-  //Uloskirjautumisen toiminto
-  function logout() {
-    window.localStorage.removeItem('loggedNoteappUser')
-    blogService.setToken(user.token)
-    setUser(null)
-    blogService.setToken(null)
-  }
-
-  //Sivun ulkoasu, näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut vai ei
+  //Sivun 'yleinen' ulkoasu: näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut sisään vai ei
   return (
     <div>
       <h1>Blogs</h1>
@@ -104,7 +161,7 @@ const App = () => {
         loginForm() :        
         <div>          
           <p>{user.name} logged in</p>
-          <button onClick={()=>logout()}>Logout</button>
+          <button onClick={()=>logout()}>Logout</button><br/>
           {blogForm()}          
         </div>
       }
