@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -9,6 +10,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
+  const [notification, setNotification ] = useState(null)
 
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newaAuthorName, setNewAuthorName] = useState('')
@@ -18,7 +20,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   //Tarkistetaan, onko sivulle jo kirjautunut joku käyttäjä
@@ -30,6 +32,14 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+   //Metodi ilmoituksille, kestää 3 sekuntia
+   const notifyWith = (message, type='success') => {
+    setNotification({ message, type })
+    setTimeout(() => {
+      setNotification(null)
+    }, 3000)
+  }
 
   //Sisäänkirjautumispainikkeen toiminto
   const handleLogin = async (event) => {
@@ -49,6 +59,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
+      notifyWith('Wrong username or password', 'error')
       console.log('wrong credentials')
     }
   }
@@ -71,6 +82,8 @@ const App = () => {
         setNewAuthorName('')
         setNewBlogUrl('')
       })
+    
+    notifyWith(`A new blog '${blogObject.title}' by '${blogObject.author}' added`)
   }
   
   //Uloskirjautumisen toiminto
@@ -156,7 +169,8 @@ const App = () => {
   //Sivun 'yleinen' ulkoasu: näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut sisään vai ei
   return (
     <div>
-      <h1>Blogs</h1>
+      <h1>Blogs</h1>      
+      <Notification notification={notification} />
       {user === null ?
         loginForm() :        
         <div>          

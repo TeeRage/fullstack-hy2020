@@ -18,3 +18,8 @@ Uloskirjautumisen jälkeen selain ei muista kirjautunutta käyttäjää reloadau
 
 ###### 5.3: blogilistan frontend, step3
 Laajennettu sovellusta siten, että kirjautunut käyttäjä voi luoda uusia blogeja.
+
+###### 5.4*: blogilistan frontend, step4
+Toteutettu sovellukseen notifikaatiot, jotka kertovat sovelluksen yläosassa onnistuneista ja epäonnistuneista toimenpiteistä. 
+Esim. epäonnistuneen sisäänkirjautumisen tai onnistuneen blogin lisäämisen yhteydessä annetaan notifikaation, joka on näkyvillä muutaman sekunnin ajan.
+Luotu komponentti components/Notification.js sekä tiedosto index.css.
