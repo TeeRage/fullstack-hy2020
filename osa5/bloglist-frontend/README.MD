@@ -23,3 +23,8 @@ Laajennettu sovellusta siten, että kirjautunut käyttäjä voi luoda uusia blog
 Toteutettu sovellukseen notifikaatiot, jotka kertovat sovelluksen yläosassa onnistuneista ja epäonnistuneista toimenpiteistä. 
 Esim. epäonnistuneen sisäänkirjautumisen tai onnistuneen blogin lisäämisen yhteydessä annetaan notifikaation, joka on näkyvillä muutaman sekunnin ajan.
 Luotu komponentti components/Notification.js sekä tiedosto index.css.
+
+###### 5.5 blogilistan frontend, step5
+Tehty blogin luomiseen käytettävästä lomakkeesta ainoastaan tarvittaessa näytettävä.
+Lomake ei ole oletusarvoisesti näkyvillä: Klikkaamalla nappia 'new note' lomake aukeaa.
+Lomake sulkeutuu kun uusi blogi luodaan tai kun käyttäjä painaa nappia 'cancel'.
