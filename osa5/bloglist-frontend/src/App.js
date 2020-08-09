@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+
 import Blog from './components/Blog'
 import Notification from './components/Notification'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
+
 import blogService from './services/blogs'
 import loginService from './services/login'
-import NewBlogForm from './components/NewBlogForm'
 
 const App = () => {
 
@@ -12,11 +15,6 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [notification, setNotification ] = useState(null)
-  const [newBlogFormVisible, setNewBlogFormVisible] = useState(false)
-
-  const [newBlogTitle, setNewBlogTitle] = useState('')
-  const [newAuthorName, setNewAuthorName] = useState('')
-  const [newBlogUrl, setNewBlogUrl] = useState('')
 
   //Haetaan blogit tietokannasta
   useEffect(() => {
@@ -67,24 +65,14 @@ const App = () => {
   }
 
   //Uuden blogin lisäämisen toiminto
-  const createNewBlog = async (event) => {
+  const createNewBlog = (blogObject) => {
 
-    event.preventDefault()
-    const blogObject = {
-      title: newBlogTitle,
-      author: newAuthorName,
-      url: newBlogUrl
-    }
-  
     blogService
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNewBlogTitle('')
-        setNewAuthorName('')
-        setNewBlogUrl('')
-      })
-    
+      })    
+
     notifyWith(`A new blog '${blogObject.title}' by '${blogObject.author}' added`)
   }
   
@@ -96,47 +84,28 @@ const App = () => {
     blogService.setToken(null)
   }
 
-  //Napilla piilotettava/esiin saatava lomake uuden blogin luomiseen, käyttää komponenttia NewBlogForm
-  const newBlogForm = () => {
-
-    const hideWhenVisible = { display: newBlogFormVisible ? 'none' : '' }
-    const showWhenVisible = { display: newBlogFormVisible ? '' : 'none' }
-
+  //Sivun ulkoasu, kun käyttäjä on kirjautunut sisään onnistuneesti
+  const blogForm = () => {
     return (
       <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setNewBlogFormVisible(true)}>Create new blog</button>
-        </div>
-        <div style={showWhenVisible}>
-          <NewBlogForm
-            handleSubmit={createNewBlog}
-            handleTitleChange={({ target }) => setNewBlogTitle(target.value)}
-            handleAuthorChange={({ target }) => setNewAuthorName(target.value)}
-            handleUrlChange={({ target }) => setNewBlogUrl(target.value)}
-            newBlogTitle={newBlogTitle}
-            newAuthorName={newAuthorName}
-            newBlogUrl={newBlogUrl}
-          />
-          <button onClick={() => setNewBlogFormVisible(false)}>Cancel</button>
-        </div>
+          <Togglable buttonLabel='Create new blog'>
+            <BlogForm
+              handleSubmit={createNewBlog}
+            />
+          </Togglable>
+          <br/>   
+      <h2>Blogs</h2>      
+        <ul>
+          {blogs.map((blog, i) => 
+           <Blog
+             key={i}
+             blog={blog}
+           />
+          )}
+        </ul>
       </div>
     )
   }//newBlogForm 
-
-  //Sivun ulkoasu, kun käyttäjä on kirjautunut onnistuneesti sisään
-  const blogForm = () => (  
-    <div><br/>   
-      <h2>Blogs</h2>      
-      <ul>
-       {blogs.map((blog, i) => 
-         <Blog
-           key={i}
-           blog={blog}
-         />
-       )}
-      </ul>
-    </div>
-  )//blogForm
 
   //Sivun ulkoasu, jos käyttäjä ei ole vielä kirjautunut onnistuneesti
   const loginForm = () => (
@@ -172,10 +141,9 @@ const App = () => {
         loginForm() :        
         <div>          
           <p>{user.name} logged in</p>
-          <button onClick={()=>logout()}>Logout</button><br/>
-          <br/>
-          {newBlogForm()}          
-          {blogForm()}          
+          <button onClick={()=>logout()}>Logout</button>
+          <br/><br/>
+          {blogForm()}                   
         </div>
       }
     </div>

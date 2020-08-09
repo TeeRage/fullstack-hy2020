@@ -28,3 +28,12 @@ Luotu komponentti components/Notification.js sekä tiedosto index.css.
 Tehty blogin luomiseen käytettävästä lomakkeesta ainoastaan tarvittaessa näytettävä.
 Lomake ei ole oletusarvoisesti näkyvillä: Klikkaamalla nappia 'new note' lomake aukeaa.
 Lomake sulkeutuu kun uusi blogi luodaan tai kun käyttäjä painaa nappia 'cancel'.
+
+###### 5.6 blogilistan frontend, step6
+Eriytetty uuden blogin luomisesta huolehtiva lomake omaan komponenttiinsa ja siirretty kaikki uuden blogin luomiseen liittyvä tila komponentin vastuulle.
+
+###### 5.7* blogilistan frontend, step7
+Lisätty blogille nappi, jonka avulla voi kontrolloida näytetäänkö kaikki blogiin liittyvät tiedot.
+Klikkaamalla nappia sen täydelliset tiedot aukeavat. Uusi napin klikkaus pienentää näkymän.
+Like-nappi ei vielä tässä vaiheessa tee mitään.
+Käytetty myös CSS:ää parantamaan sovelluksen ulkoasua.
