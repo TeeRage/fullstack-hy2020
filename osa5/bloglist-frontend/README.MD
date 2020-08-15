@@ -39,5 +39,8 @@ Like-nappi ei vielä tässä vaiheessa tee mitään.
 Käytetty myös CSS:ää parantamaan sovelluksen ulkoasua.
 
 ###### 5.8*: blogilistan frontend, step8
-Toteutettu blogin like-painikkeen toiminnallisuus. 
+Toteutettu blogin like-painikkeen toiminnallisuus.
 Like lisätään backendiin blogin yksilöivään urliin tapahtuvalla PUT-pyynnöllä.
+
+###### 5.9*: blogilistan frontend, step9
+Sovellus näyttää blogit likejen mukaisessa suuruusjärjestyksessä.

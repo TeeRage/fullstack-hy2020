@@ -18,11 +18,21 @@ const App = () => {
 
   const blogFormRef = useRef()
 
-  //Haetaan blogit tietokannasta
+  //Järjestä arrayn blogit likejen mukaan suurimmasta pienimpään
+  function orderBlogs(blogArray) {
+    const ordererdBlogs = blogArray.sort(function(a,b){
+      return b.likes - a.likes
+    })
+    return ordererdBlogs
+  }
+
+  //Haetaan blogit tietokannasta ja järjestetään ne likejen määrän perusteella
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
+    async function fetchData(){
+      const blogArray = await blogService.getAll()
+      setBlogs(orderBlogs(blogArray))
+    }        
+    fetchData()
   }, [])
 
   //Tarkistetaan, onko sivulle jo kirjautunut joku käyttäjä
@@ -67,26 +77,24 @@ const App = () => {
   }
 
   //Uuden blogin lisäämisen toiminto
-  const createNewBlog = (blogObject) => {
+  const createNewBlog = async (blogObject) => {
 
     //Lomakkeen näkyvyyden säätely ref avulla
-    blogFormRef.current.toggleVisibility()
+    await blogFormRef.current.toggleVisibility()
 
-    blogService
-      .create(blogObject)
-      .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-      })    
+    const returnedBlog = await blogService.create(blogObject)
+    setBlogs(blogs.concat(returnedBlog))
 
+    console.log(`A new blog '${blogObject.title}' by '${blogObject.author}' added`)
     notifyWith(`A new blog '${blogObject.title}' by '${blogObject.author}' added`)
   }
 
-  //Like-nappulan painallus (blogille +1 like)
+  //Like-nappulan painallus (blogille +1 like ja päivitetään suuruusjärjestyksen mukaan)
   const likeBlog = async (id, blogObject) => {
 
     await blogService.update(id, blogObject)
     const updatedBlogs = await blogService.getAll()
-    setBlogs(updatedBlogs)
+    setBlogs(orderBlogs(updatedBlogs))
 
     console.log(`Blog '${blogObject.title}' has been liked.`)
     notifyWith(`Blog '${blogObject.title}' has been liked.`)
@@ -142,6 +150,7 @@ const App = () => {
           type="password"
           value={password}
           name="Password"
+          autoComplete="on"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
