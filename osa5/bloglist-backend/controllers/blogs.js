@@ -10,6 +10,16 @@ router.get('/', async (request, response) => {
   response.json(blogs)
 })
 
+//Hakee ja palauttaa yhden blogikirjoituksen id:n perusteella
+router.get('/:id', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  if (blog) {
+    response.json(blog.toJSON())
+  } else {
+    response.status(404).end()
+  }
+})
+
 router.delete('/:id', async (request, response) => {
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
@@ -30,7 +40,16 @@ router.delete('/:id', async (request, response) => {
 })
 
 router.put('/:id', async (request, response) => {
-  const blog = request.body
+
+  const body = request.body
+
+  const blog = {
+    url: body.url,
+    title: body.title,
+    author: body.author,    
+    likes: body.likes,
+    user: body.user.id
+  }
 
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
   response.json(updatedBlog.toJSON())
