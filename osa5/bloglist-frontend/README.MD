@@ -37,3 +37,7 @@ Lisätty blogille nappi, jonka avulla voi kontrolloida näytetäänkö kaikki bl
 Klikkaamalla nappia sen täydelliset tiedot aukeavat. Uusi napin klikkaus pienentää näkymän.
 Like-nappi ei vielä tässä vaiheessa tee mitään.
 Käytetty myös CSS:ää parantamaan sovelluksen ulkoasua.
+
+###### 5.8*: blogilistan frontend, step8
+Toteutettu blogin like-painikkeen toiminnallisuus. 
+Like lisätään backendiin blogin yksilöivään urliin tapahtuvalla PUT-pyynnöllä.

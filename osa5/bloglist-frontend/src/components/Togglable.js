@@ -1,9 +1,9 @@
 /**
  * Komponentti, jolla säädellään uuden blogin luomislomakkeen näkyvyyttä.
 */
-import React, { useState } from 'react'
+import React, { useState, useImperativeHandle  } from 'react'
 
-const Togglable = (props) => {
+const Togglable = React.forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -12,6 +12,13 @@ const Togglable = (props) => {
   const toggleVisibility = () => {
     setVisible(!visible)
   }
+
+  //Piilotetaan lomake automaagisesti, kun käyttäjä on lisännyt uuden blogin
+  useImperativeHandle(ref, () => {
+    return {
+      toggleVisibility
+    }
+  })
 
   return (
     <div>
@@ -24,6 +31,6 @@ const Togglable = (props) => {
       </div>
     </div>
   )
-}
+})
 
 export default Togglable

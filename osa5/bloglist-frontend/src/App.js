@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import Blog from './components/Blog'
 import Notification from './components/Notification'
@@ -15,6 +15,8 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [notification, setNotification ] = useState(null)
+
+  const blogFormRef = useRef()
 
   //Haetaan blogit tietokannasta
   useEffect(() => {
@@ -67,6 +69,9 @@ const App = () => {
   //Uuden blogin lisäämisen toiminto
   const createNewBlog = (blogObject) => {
 
+    //Lomakkeen näkyvyyden säätely ref avulla
+    blogFormRef.current.toggleVisibility()
+
     blogService
       .create(blogObject)
       .then(returnedBlog => {
@@ -74,6 +79,17 @@ const App = () => {
       })    
 
     notifyWith(`A new blog '${blogObject.title}' by '${blogObject.author}' added`)
+  }
+
+  //Like-nappulan painallus (blogille +1 like)
+  const likeBlog = async (id, blogObject) => {
+
+    await blogService.update(id, blogObject)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(updatedBlogs)
+
+    console.log(`Blog '${blogObject.title}' has been liked.`)
+    notifyWith(`Blog '${blogObject.title}' has been liked.`)
   }
   
   //Uloskirjautumisen toiminto
@@ -88,9 +104,9 @@ const App = () => {
   const blogForm = () => {
     return (
       <div>
-          <Togglable buttonLabel='Create new blog'>
+          <Togglable buttonLabel='Create new blog' ref={blogFormRef}>
             <BlogForm
-              handleSubmit={createNewBlog}
+              createBlog={createNewBlog}
             />
           </Togglable>
           <br/>   
@@ -100,6 +116,7 @@ const App = () => {
            <Blog
              key={i}
              blog={blog}
+             likeBlog={likeBlog}
            />
           )}
         </ul>

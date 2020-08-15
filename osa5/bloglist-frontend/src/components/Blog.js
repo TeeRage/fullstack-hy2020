@@ -3,7 +3,7 @@
  */
 import React, { useState } from 'react'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, likeBlog }) => {
 
   //Blogilistan ulkoasu
   const blogStyle = {
@@ -31,6 +31,22 @@ const Blog = ({ blog }) => {
     }    
   }
 
+  //Yhden tykkäyksen lisääminen blogille 
+  const addLike = (event) => {
+
+    event.preventDefault()
+    const id = blog.id
+
+    likeBlog(id, {      
+        user: blog.user,
+        likes: blog.likes+1,
+        author: blog.author,
+        title: blog.title,
+        url: blog.url
+      }
+    )
+  }
+
   //Käyttäjälle "näkyvä" osa
   return(
     <div style = {blogStyle}>
@@ -38,7 +54,7 @@ const Blog = ({ blog }) => {
       <div style = {showWhenVisible}>
         <ul>
           <li>Url: {blog.url}</li>
-          <li>Likes: {blog.likes} <button>like</button></li>
+          <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
           <li>User added: {blog.user.username}</li>
         </ul> 
       </div>
