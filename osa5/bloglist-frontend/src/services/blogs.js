@@ -9,9 +9,9 @@ const setToken = newToken => {
 }
 
 //Hae kaikki blogit tietokannasta
-const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+const getAll = async () => {
+  const request = await axios.get(baseUrl)
+  return request.data
 }
 
 //Blogin lisääminen tietokantaan
@@ -25,9 +25,19 @@ const create = async newObject => {
 }
 
 //Päivitä blogin tietoja
-const update = (id, newObject) => {
-  const request = axios.put(`${ baseUrl }/${id}`, newObject)
-  return request.then(response => response.data)
+const update = async (id, newObject) => {
+  const request = await axios.put(`${ baseUrl }/${id}`, newObject)
+  return request.data
 }
 
-export default { getAll , create, update, setToken}
+//Poista blogi tietokannasta
+const removeBlog = async (id) => {
+
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.delete(`${ baseUrl }/${id}`, config)
+  return response.data
+}
+
+export default { getAll , create, update, setToken, removeBlog}

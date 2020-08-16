@@ -99,6 +99,17 @@ const App = () => {
     console.log(`Blog '${blogObject.title}' has been liked.`)
     notifyWith(`Blog '${blogObject.title}' has been liked.`)
   }
+
+  //Remove-nappulan painallus (poistetaan blogi tietokannasta)
+  const removeBlog = async (id) => {
+
+    await blogService.removeBlog(id)
+    const updatedBlogs = await blogService.getAll()
+    setBlogs(orderBlogs(updatedBlogs))
+
+    console.log(`Blog has been removed.`)
+    notifyWith(`Blog has been removed.`)
+  }
   
   //Uloskirjautumisen toiminto
   function logout() {
@@ -125,6 +136,8 @@ const App = () => {
              key={i}
              blog={blog}
              likeBlog={likeBlog}
+             removeBlog={removeBlog}
+             user={user}
            />
           )}
         </ul>

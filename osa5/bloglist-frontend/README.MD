@@ -44,3 +44,7 @@ Like lisätään backendiin blogin yksilöivään urliin tapahtuvalla PUT-pyynn�
 
 ###### 5.9*: blogilistan frontend, step9
 Sovellus näyttää blogit likejen mukaisessa suuruusjärjestyksessä.
+
+###### 5.10*: blogilistan frontend, step10
+Lisätty nappi ja logiikka blogin poistamiselle.
+Ppoistonappi näkyy ainoastaan jos kyseessä on kirjautuneen käyttäjän lisäämä blogi.
