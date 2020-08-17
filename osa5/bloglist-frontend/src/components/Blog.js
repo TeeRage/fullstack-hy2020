@@ -28,16 +28,16 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
       setButtonText('hide')
     }
     else{
-      setButtonText('view')    
-    }    
+      setButtonText('view')
+    }
   }
 
   //Blogin poistaminen napin painalluksesta
-  const removeButtonClick = (event) => {    
+  const removeButtonClick = (event) => {
     event.preventDefault()
     const id = blog.id
-    if (window.confirm("Are you sure that you want to delete this blog?")) { 
-      removeBlog(id) 
+    if (window.confirm('Are you sure that you want to delete this blog?')) {
+      removeBlog(id)
     }
   }
 
@@ -47,13 +47,13 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
     event.preventDefault()
     const id = blog.id
 
-    likeBlog(id, {      
-        user: blog.user,
-        likes: blog.likes+1,
-        author: blog.author,
-        title: blog.title,
-        url: blog.url
-      }
+    likeBlog(id, {
+      user: blog.user,
+      likes: blog.likes+1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
     )
   }
 
@@ -67,7 +67,7 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
           <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
           <li>User added: {blog.user.username}</li>
           {blog.user.username === username ?<button onClick={removeButtonClick}>Remove</button> : ''}
-        </ul> 
+        </ul>
       </div>
     </div>
   )

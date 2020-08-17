@@ -2,9 +2,9 @@
  * Lomake uuden blogin lisäämistä varten.
  * Saa syötteenä metodin, jolla blogi lisätään MongoDB tietokantaan.
 */
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-const BlogForm = ({createBlog}) => {
+const BlogForm = ({ createBlog }) => {
 
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newAuthorName, setNewAuthorName] = useState('')
@@ -22,14 +22,14 @@ const BlogForm = ({createBlog}) => {
     setNewBlogUrl(event.target.value)
   }
 
-  const addBlog = (event) => {    
+  const addBlog = (event) => {
     event.preventDefault()
     createBlog({
       title: newBlogTitle,
       author: newAuthorName,
       url: newBlogUrl
-    }) 
-    
+    })
+
     setNewBlogTitle('')
     setNewAuthorName('')
     setNewBlogUrl('')
@@ -37,37 +37,37 @@ const BlogForm = ({createBlog}) => {
 
   return (
     <div>
-        <h2>Create new blog</h2>        
-        <form onSubmit={addBlog}>
-          <div>
+      <h2>Create new blog</h2>
+      <form onSubmit={addBlog}>
+        <div>
             title
-              <input
-              type="text"
-              value={newBlogTitle}
-              onChange={handleTitleChange}
-              name="Title"
-            />
-          </div>
-          <div>
+          <input
+            type="text"
+            value={newBlogTitle}
+            onChange={handleTitleChange}
+            name="Title"
+          />
+        </div>
+        <div>
             author
-              <input
-              type="text"
-              value={newAuthorName}
-              onChange={handleAuthorChange}
-              name="Author"
-            />
-          </div>
-          <div>
+          <input
+            type="text"
+            value={newAuthorName}
+            onChange={handleAuthorChange}
+            name="Author"
+          />
+        </div>
+        <div>
             url
-              <input
-              type="text"
-              onChange={handleUrlChange}
-              value={newBlogUrl}
-              name="Url"
-            />
-          </div><br/>
-          <button type="submit">create</button>
-        </form><br/>
+          <input
+            type="text"
+            onChange={handleUrlChange}
+            value={newBlogUrl}
+            name="Url"
+          />
+        </div><br/>
+        <button type="submit">create</button>
+      </form><br/>
     </div>
   )
 }

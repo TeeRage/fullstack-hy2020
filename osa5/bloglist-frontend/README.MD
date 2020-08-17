@@ -51,3 +51,8 @@ Ppoistonappi näkyy ainoastaan jos kyseessä on kirjautuneen käyttäjän lisä�
 
 ###### 5.11: blogilistan frontend, step11
 Määritelty komponenteille Togglabble PropTypes.
+
+###### 5.12: blogilistan frontend, step12
+Otettu käyttöön ESlint (Create-react-app asentanut eslintin valmiiksi) ja korjattu kaikki lint-virheet.
+Asennettu plugin eslint-jest-plugin sekä lisätty eslintin konfiguraatio tiedostoon .eslintrc.js.
+Luotu tiedosto .eslintignore sekä lisätty buildiin npm scripti lintausta varten.

@@ -31,7 +31,7 @@ const App = () => {
     async function fetchData(){
       const blogArray = await blogService.getAll()
       setBlogs(orderBlogs(blogArray))
-    }        
+    }
     fetchData()
   }, [])
 
@@ -45,8 +45,8 @@ const App = () => {
     }
   }, [])
 
-   //Metodi ilmoituksille, kestää 3 sekuntia
-   const notifyWith = (message, type='success') => {
+  //Metodi ilmoituksille, kestää 3 sekuntia
+  const notifyWith = (message, type='success') => {
     setNotification({ message, type })
     setTimeout(() => {
       setNotification(null)
@@ -107,10 +107,10 @@ const App = () => {
     const updatedBlogs = await blogService.getAll()
     setBlogs(orderBlogs(updatedBlogs))
 
-    console.log(`Blog has been removed.`)
-    notifyWith(`Blog has been removed.`)
+    console.log('Blog has been removed.')
+    notifyWith('Blog has been removed.')
   }
-  
+
   //Uloskirjautumisen toiminto
   function logout() {
     window.localStorage.removeItem('loggedNoteappUser')
@@ -123,34 +123,34 @@ const App = () => {
   const blogForm = () => {
     return (
       <div>
-          <Togglable buttonLabel='Create new blog' ref={blogFormRef}>
-            <BlogForm
-              createBlog={createNewBlog}
-            />
-          </Togglable>
-          <br/>   
-      <h2>Blogs</h2>      
+        <Togglable buttonLabel='Create new blog' ref={blogFormRef}>
+          <BlogForm
+            createBlog={createNewBlog}
+          />
+        </Togglable>
+        <br/>
+        <h2>Blogs</h2>
         <ul>
-          {blogs.map((blog, i) => 
-           <Blog
-             key={i}
-             blog={blog}
-             likeBlog={likeBlog}
-             removeBlog={removeBlog}
-             user={user}
-           />
+          {blogs.map((blog, i) =>
+            <Blog
+              key={i}
+              blog={blog}
+              likeBlog={likeBlog}
+              removeBlog={removeBlog}
+              user={user}
+            />
           )}
         </ul>
       </div>
     )
-  }//newBlogForm 
+  }//newBlogForm
 
   //Sivun ulkoasu, jos käyttäjä ei ole vielä kirjautunut onnistuneesti
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -159,7 +159,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -168,21 +168,21 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-    </form>      
+    </form>
   )//LoginForm
 
   //Sivun 'yleinen' ulkoasu: näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut sisään vai ei
   return (
     <div>
-      <h1>Blogs</h1>      
+      <h1>Blogs</h1>
       <Notification notification={notification} />
       {user === null ?
-        loginForm() :        
-        <div>          
+        loginForm() :
+        <div>
           <p>{user.name} logged in</p>
-          <button onClick={()=>logout()}>Logout</button>
+          <button onClick={() => logout()}>Logout</button>
           <br/><br/>
-          {blogForm()}                   
+          {blogForm()}
         </div>
       }
     </div>
