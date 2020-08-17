@@ -48,3 +48,6 @@ Sovellus näyttää blogit likejen mukaisessa suuruusjärjestyksessä.
 ###### 5.10*: blogilistan frontend, step10
 Lisätty nappi ja logiikka blogin poistamiselle.
 Ppoistonappi näkyy ainoastaan jos kyseessä on kirjautuneen käyttäjän lisäämä blogi.
+
+###### 5.11: blogilistan frontend, step11
+Määritelty komponenteille Togglabble PropTypes.
