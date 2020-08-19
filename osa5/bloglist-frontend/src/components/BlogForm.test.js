@@ -13,14 +13,16 @@ describe('Komponentti <BlogForm />', () => {
   //5.16*: blogilistan testit, step4
   test('5.16*: kutsuu propseina saamaansa takaisinkutsufunktiota oikeilla tiedoilla', () => {
 
-    const mockHandler = jest.fn()
-    const component = render(<BlogForm createBlog={mockHandler} />)
+    const mhCreateBlog = jest.fn()
+    const component = render(<BlogForm createBlog={mhCreateBlog} />)
 
-    const inputTitle = component.getByLabelText('title')
-    const inputAuthor = component.getByLabelText('author')
-    const inputUrl = component.getByLabelText('url')
+    //Komponentit
+    const inputTitle = component.container.querySelector('#title')
+    const inputAuthor = component.container.querySelector('#author')
+    const inputUrl = component.container.querySelector('#url')
     const form = component.container.querySelector('form')
 
+    //"Kirjoitetaan" formille lisättävän blogin tiedot
     fireEvent.change(inputTitle, {
       target: {
         value: 'testing of forms could be easier'
@@ -39,15 +41,17 @@ describe('Komponentti <BlogForm />', () => {
       }
     })
 
+    //VArmistetaan, että tekstikenttien sisältö on oikea
+    expect(inputTitle.value).toBe('testing of forms could be easier')
+    expect(inputAuthor.value).toBe('Hessu Hopo')
+    expect(inputUrl.value).toBe('www.testaus.fi')
+
+    //Aktivoidaan formin lähetys eli addBlog-funktio, joka kutsuu createBlogia
     fireEvent.submit(form)
 
-    //expect(inputTitle.value).toBe('testing of forms could be easier')
-    //expect(inputAuthor.value).toBe('Hessu Hopo')
-    //expect(inputUrl.value).toBe('www.testaus.fi')
-
-    expect(mockHandler.mock.calls).toHaveLength(1)
-    expect(mockHandler.mock.calls[0][0][0][0].content).toBe('testing of forms could be easier')
-    //expect(mockHandler.mock.calls[0][0][0].content).toBe('Hessu Hopo')
-    //expect(mockHandler.mock.calls[0][0][1].content).toBe('www.testaus.fi')
+    //Testataan lomakkeen takaisinkutsufunktiota (createBlog-eventin kutsuma mockHandler)
+    expect(mhCreateBlog).toHaveBeenCalled()
+    expect(mhCreateBlog).toHaveBeenCalledTimes(1)
+    expect(mhCreateBlog).toHaveBeenCalledWith({ 'author': 'Hessu Hopo', 'title': 'testing of forms could be easier', 'url': 'www.testaus.fi' })
   })
 })
