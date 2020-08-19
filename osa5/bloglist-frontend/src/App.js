@@ -9,7 +9,6 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -123,10 +122,11 @@ const App = () => {
   const blogForm = () => {
     return (
       <div>
+        <p>{user.name} logged in</p>
+        <button onClick={() => logout()}>Logout</button>
+        <br/><br/>
         <Togglable buttonLabel='Create new blog' ref={blogFormRef}>
-          <BlogForm
-            createBlog={createNewBlog}
-          />
+          <BlogForm createBlog={createNewBlog}/>
         </Togglable>
         <br/>
         <h2>Blogs</h2>
@@ -143,7 +143,7 @@ const App = () => {
         </ul>
       </div>
     )
-  }//newBlogForm
+  }//blogForm
 
   //Sivun ulkoasu, jos käyttäjä ei ole vielä kirjautunut onnistuneesti
   const loginForm = () => (
@@ -169,22 +169,14 @@ const App = () => {
       </div>
       <button type="submit">login</button>
     </form>
-  )//LoginForm
+  )//loginForm
 
   //Sivun 'yleinen' ulkoasu: näytettävä sisältö sen mukaan, onko käyttäjä kirjautunut sisään vai ei
   return (
     <div>
       <h1>Blogs</h1>
       <Notification notification={notification} />
-      {user === null ?
-        loginForm() :
-        <div>
-          <p>{user.name} logged in</p>
-          <button onClick={() => logout()}>Logout</button>
-          <br/><br/>
-          {blogForm()}
-        </div>
-      }
+      {user === null?loginForm():blogForm()}
     </div>
   )
 }//const App

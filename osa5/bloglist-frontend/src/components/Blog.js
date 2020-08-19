@@ -53,21 +53,32 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
       author: blog.author,
       title: blog.title,
       url: blog.url
-    }
-    )
+    })
   }
 
-  //Käyttäjälle "näkyvä" osa (poisto-nappi näkyy vain blogeissa, jotka käyttäjä on itse lisännyt)
-  return(
-    <div style = {blogStyle}>
-      {blog.title}, {blog.author} <button onClick={toggleVisibility}>{buttonText}</button>
-      <div style = {showWhenVisible}>
+  //Blogin lisätiedot, jotka näytetään kun view-nappia painetaan
+  const additionalInfo = () => {
+    return(
+      <div>
         <ul>
           <li>Url: {blog.url}</li>
           <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
           <li>User added: {blog.user.username}</li>
           {blog.user.username === username ?<button onClick={removeButtonClick}>Remove</button> : ''}
         </ul>
+      </div>
+    )
+  }
+
+  //Käyttäjälle "näkyvä" osa (poisto-nappi näkyy vain blogeissa, jotka käyttäjä on itse lisännyt)
+  return(
+    <div style = {blogStyle} className='blog'>
+      {blog.title}, {blog.author}
+      <button onClick={toggleVisibility}>
+        {buttonText}
+      </button>
+      <div style = {showWhenVisible} className='togglableContent'>
+        {additionalInfo()}
       </div>
     </div>
   )

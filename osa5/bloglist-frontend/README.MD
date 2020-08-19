@@ -56,3 +56,8 @@ Määritelty komponenteille Togglabble PropTypes.
 Otettu käyttöön ESlint (Create-react-app asentanut eslintin valmiiksi) ja korjattu kaikki lint-virheet.
 Asennettu plugin eslint-jest-plugin sekä lisätty eslintin konfiguraatio tiedostoon .eslintrc.js.
 Luotu tiedosto .eslintignore sekä lisätty buildiin npm scripti lintausta varten.
+
+###### 5.13: blogilistan testit, step1
+Testaukset tehty Jest-kirjastolla, joka on valmiiksi konfiguroitu create-react-app:illa luotuihin projekteihin.
+Asennettu kirjastot react-testing-library ja jest-dom.
+Luotu testi, joka varmistaa että blogin näyttävä komponentti renderöi blogin titlen ja authorin mutta ei renderöi oletusarvoisesti urlia eikä likejen määrää.
