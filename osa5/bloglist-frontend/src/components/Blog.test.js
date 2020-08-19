@@ -34,7 +34,7 @@ describe('Komponentti <Blog />', () => {
   beforeEach(() => {
     component = render(
       <Blog blog={blog} user={user} likeBlog={mockHandler}>
-        <div className="testDiv" />
+        <div className="testDiv"/>
       </Blog>
     )
   })
@@ -57,17 +57,15 @@ describe('Komponentti <Blog />', () => {
     //Testataan, että div komponentin tyyli on piilotettu (url, likes ja user piilossa)
     const div = component.container.querySelector('.togglableContent')
     expect(div).toHaveStyle('display: none')
+    //expect(div).not.toBeVisible()
 
-    //Testataan, ettei urlia, authoria ja likejen määrää renderöity
-    expect(component.container).not.toHaveTextContent(
-      'User1',
-      'www.test.fi',
-      51
-    )
+    //Testataan, ettei urlia ja likejen määrää renderöity
+    expect(div).not.toHaveTextContent(51)
+    expect(div).not.toHaveTextContent('www.test.fi')
   })
 
   //5.14: blogilistan testit, step2
-  //myös url ja likejen määrä näytetään kun blogin kaikki tiedot näyttävää nappia on painettu.
+  //Myös url ja likejen määrä näytetään kun blogin kaikki tiedot näyttävää nappia on painettu.
   test('5.14: myös url ja likejen määrä näytetään kun blogin kaikki tiedot näyttävää nappia on painettu', () => {
 
     //Klikataan view-nappia ja avataan sisältö
@@ -77,16 +75,27 @@ describe('Komponentti <Blog />', () => {
     //Testataan, että div komponentin tyyli ei ole piilotettu (on näkyvissä)
     const div = component.container.querySelector('.togglableContent')
     expect(div).not.toHaveStyle('display: none')
+    //expect(div).toBeVisible()
+
+    //Testataan, että myös url ja likejen määrää on näkyvissä
+    expect(component.container).toHaveTextContent('www.test.fi')
+    expect(component.container).toHaveTextContent(51)
   })
 
 
   //5.15: blogilistan testit, step3
   test('5.15: like-napin klikkaaminen kahdesti kutsuu event handleria kaksi kertaa', async () => {
 
+    //Klikataan view-nappia ja avataan piilotettu sisältö
+    const buttonView = component.getByText('view')
+    fireEvent.click(buttonView)
+
+    //Klikataan like-nappia kahdesti
     const button = component.getByText('like')
     fireEvent.click(button)
     fireEvent.click(button)
 
+    //Testataan aikaisemmin like-buttonille määritetty mockhandlerin pituus
     expect(mockHandler.mock.calls).toHaveLength(2)
   })
 

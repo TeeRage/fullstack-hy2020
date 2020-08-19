@@ -59,14 +59,12 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
   //Blogin lisätiedot, jotka näytetään kun view-nappia painetaan
   const additionalInfo = () => {
     return(
-      <div>
-        <ul>
-          <li>Url: {blog.url}</li>
-          <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
-          <li>User added: {blog.user.username}</li>
-          {blog.user.username === username ?<button onClick={removeButtonClick}>Remove</button> : ''}
-        </ul>
-      </div>
+      <ul>
+        <li>Url: {blog.url}</li>
+        <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
+        <li>User added: {blog.user.username}</li>
+        {blog.user.username === username ?<button onClick={removeButtonClick}>Remove</button> : ''}
+      </ul>
     )
   }
 
@@ -78,7 +76,7 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
         {buttonText}
       </button>
       <div style = {showWhenVisible} className='togglableContent'>
-        {additionalInfo()}
+        {visible?additionalInfo():null}
       </div>
     </div>
   )

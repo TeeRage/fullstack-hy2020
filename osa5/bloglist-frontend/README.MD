@@ -61,3 +61,9 @@ Luotu tiedosto .eslintignore sekä lisätty buildiin npm scripti lintausta varte
 Testaukset tehty Jest-kirjastolla, joka on valmiiksi konfiguroitu create-react-app:illa luotuihin projekteihin.
 Asennettu kirjastot react-testing-library ja jest-dom.
 Luotu testi, joka varmistaa että blogin näyttävä komponentti renderöi blogin titlen ja authorin mutta ei renderöi oletusarvoisesti urlia eikä likejen määrää.
+
+###### 5.14: blogilistan testit, step2
+Tehty testi, joka varmistaa että myös url ja likejen määrä näytetään kun blogin kaikki tiedot näyttävää nappia on painettu.
+
+###### 5.15: blogilistan testit, step3
+Tehty testi, joka varmistaa, että jos komponentin like-nappia painetaan kahdesti, komponentin propsina saamaa tapahtumankäsittelijäfunktiota kutsutaan kaksi kertaa.
