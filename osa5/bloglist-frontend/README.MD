@@ -90,3 +90,7 @@ Testi varmistaa, että luotu blogi tulee näkyville blogien listalle.
 
 ###### 5.20: blogilistan end to end -testit, step4
 Tehty testi, joka varmistaa, että blogia voi "likettää".
+
+###### 5.21: blogilistan end to end -testit, step5
+Tehty testi, joka varmistaa, että blogin lisännyt käyttäjä voi poistaa blogin.
+Varmistettu myös, että poisto ei onnistu muilta kuin blogin lisänneeltä käyttäjältä.
