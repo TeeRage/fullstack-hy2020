@@ -58,6 +58,7 @@ Asennettu plugin eslint-jest-plugin sekä lisätty eslintin konfiguraatio tiedos
 Luotu tiedosto .eslintignore sekä lisätty buildiin npm scripti lintausta varten.
 
 ###### 5.13: blogilistan testit, step1
+Luotu tiedosto /components/Blog.test.js.
 Testaukset tehty Jest-kirjastolla, joka on valmiiksi konfiguroitu create-react-app:illa luotuihin projekteihin.
 Asennettu kirjastot react-testing-library ja jest-dom.
 Luotu testi, joka varmistaa että blogin näyttävä komponentti renderöi blogin titlen ja authorin mutta ei renderöi oletusarvoisesti urlia eikä likejen määrää.
@@ -67,3 +68,11 @@ Tehty testi, joka varmistaa että myös url ja likejen määrä näytetään kun
 
 ###### 5.15: blogilistan testit, step3
 Tehty testi, joka varmistaa, että jos komponentin like-nappia painetaan kahdesti, komponentin propsina saamaa tapahtumankäsittelijäfunktiota kutsutaan kaksi kertaa.
+
+###### 5.16*: blogilistan testit, step4
+Luotu komponentti /components/BlogForm.test.js.
+Tehty uuden blogin luomisesta huolehtivalle lomakkelle testi, joka varmistaa, että lomake kutsuu propseina saamaansa takaisinkutsufunktiota oikeilla tiedoilla siinä vaiheessa kun blogi luodaan.
+
+###### 5.17: blogilistan end to end -testit, step1
+Konfiguroitu Cypress projektiin. 
+Tehty testi, joka varmistaa, että sovellus näyttää oletusarvoisesti kirjautumislomakkeen.
