@@ -75,5 +75,24 @@ describe('Blog app', function() {
       cy.contains('Agatha Christie')
       cy.contains('view')
     })
+
+    //Blogia voidaan likettää
+    it('A blog can be liked', function() {
+
+      cy.contains('Create new blog').click()
+      cy.get('#title').type('Testiblogi')
+      cy.get('#author').type('Kirjailija')
+      cy.get('#url').type('www.testimaa.fi')
+      cy.contains('create').click()
+      cy.contains('A new blog')
+      cy.contains('added')
+
+      //Varmistetaan, että blogi tulee näkyviin
+      cy.contains('Blogs')
+      cy.contains('Testiblogi')
+      cy.contains('Kirjailija')
+      cy.contains('view').click()
+      cy.contains('like').click()
+    })
   })
 })

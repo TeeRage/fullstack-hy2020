@@ -87,3 +87,6 @@ Luotu testejä varten käyttäjä beforeEach-lohkossa.
 ###### 5.19: blogilistan end to end -testit, step3
 Tehty testi, joka varmistaa, että kirjaantunut käyttäjä pystyy luomaan blogin.
 Testi varmistaa, että luotu blogi tulee näkyville blogien listalle.
+
+###### 5.20: blogilistan end to end -testit, step4
+Tehty testi, joka varmistaa, että blogia voi "likettää".
