@@ -74,5 +74,16 @@ Luotu komponentti /components/BlogForm.test.js.
 Tehty uuden blogin luomisesta huolehtivalle lomakkelle testi, joka varmistaa, että lomake kutsuu propseina saamaansa takaisinkutsufunktiota oikeilla tiedoilla siinä vaiheessa kun blogi luodaan.
 
 ###### 5.17: blogilistan end to end -testit, step1
-Konfiguroitu Cypress projektiin. 
+Konfiguroitu Cypress projektiin.
+Backendiin luotu testejä varten API-endpoint, jonka avulla testit voivat tarvittaessa nollata testitietokannan.
+HTTP POST -operaatio backendin endpointiin /api/testing/reset tyhjentää tietokannan.
+Luotu tiedosto cypress/integration/blog_app.spec.js.
 Tehty testi, joka varmistaa, että sovellus näyttää oletusarvoisesti kirjautumislomakkeen.
+
+###### 5.18: blogilistan end to end -testit, step2
+Lisätty testit kirjautumiselle, joka testaa sekä onnistuneen että epäonnistuneen kirjautumisen. 
+Luotu testejä varten käyttäjä beforeEach-lohkossa.
+
+###### 5.19: blogilistan end to end -testit, step3
+Tehty testi, joka varmistaa, että kirjaantunut käyttäjä pystyy luomaan blogin.
+Testi varmistaa, että luotu blogi tulee näkyville blogien listalle.
