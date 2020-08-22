@@ -61,7 +61,13 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
     return(
       <ul>
         <li>Url: {blog.url}</li>
-        <li>Likes: {blog.likes} <button onClick={addLike}>like</button></li>
+        <li id='likesOfBlog'>
+          Likes:
+          <span data-testid="likes-amount" type="number">
+            {blog.likes}
+          </span>
+          <button onClick={addLike}>like</button>
+        </li>
         <li>User added: {blog.user.username}</li>
         {blog.user.username === username ?<button onClick={removeButtonClick}>Remove</button> : ''}
       </ul>
@@ -72,7 +78,7 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
   return(
     <div style = {blogStyle} className='blog'>
       {blog.title}, {blog.author}
-      <button onClick={toggleVisibility}>
+      <button id='viewButton' onClick={toggleVisibility}>
         {buttonText}
       </button>
       <div style = {showWhenVisible} className='togglableContent'>

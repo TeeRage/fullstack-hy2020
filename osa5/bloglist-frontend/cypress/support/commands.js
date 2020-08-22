@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+
+//Kirjaudu sisään käytätjätunnuksilla
 Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:3003/api/login', {
     username, password
@@ -8,15 +10,15 @@ Cypress.Commands.add('login', ({ username, password }) => {
   })
 })
 
-Cypress.Commands.add('createBlog', ({ title, author, url }) => {
+//Luo uusi blogi
+Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
   cy.request({
     url: 'http://localhost:3003/api/blogs',
     method: 'POST',
-    body: { title, author, url },
+    body: { title, author, url, likes },
     headers: {
       'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedNoteappUser')).token}`
     }
   })
-
   cy.visit('http://localhost:3000')
 })

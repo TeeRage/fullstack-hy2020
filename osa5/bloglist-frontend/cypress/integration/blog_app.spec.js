@@ -1,5 +1,6 @@
 /**
- * Cypress-testit E2E -testaukseen
+ * Cypress-testit E2E -testaukseen.
+ * Alussa kokeiltu erilaisia tapoja tehdä asioita, kaikki eivät ole välttämättä hyvän tavan mukaisia.
  */
 describe('Blog app', function() {
 
@@ -50,7 +51,7 @@ describe('Blog app', function() {
     })
   })
 
-  //Testataan uuden blogin luominen (kirjautuneelle käyttäjälle)
+  //Testit sisäänkirjautuneelle käyttäjälle
   describe('When logged in', function() {
 
     beforeEach(function() {
@@ -59,36 +60,33 @@ describe('Blog app', function() {
       cy.login({ username: 'mörkö', password: 'admin' })
 
       //Luodaan muutama blogi testausta varten (määritetty /support/commands)
-      cy.createBlog({ title: 'Testiblogi', author: 'Kirjailija', url:'www.osoite.fi' })
-      cy.createBlog({ title: 'Testiblogi2', author: 'Kirjailija', url:'www.osoite.fi' })
-      cy.createBlog({ title: 'Testiblogi3', author: 'Kirjailija', url:'www.osoite.fi' })
+      cy.createBlog({ title: 'Testiblogi1', author: 'Kirjailija', url:'www.osoite.fi', likes:5 })
+      cy.createBlog({ title: 'Testiblogi2', author: 'Kirjailija', url:'www.osoite.fi', likes:9 })
+      cy.createBlog({ title: 'Testiblogi3', author: 'Kirjailija', url:'www.osoite.fi', likes:3 })
     })
 
     //5.19: Testataan, että blogi voidaan lisätä
     it('5.19: A blog can be created', function() {
 
       //Luodaan uusi blogi
+      //cy.get('#toggleVisibilityButton').click()
       cy.contains('Create new blog').click()
       cy.get('#title').type('Agathan blogi')
       cy.get('#author').type('Agatha Christie')
       cy.get('#url').type('www.testimaa.fi')
-      cy.contains('create').click()
-      cy.contains('A new blog')
-      cy.contains('added')
+      cy.get('#createBlogButton').click()
 
-      //Varmistetaan, että blogi tulee näkyviin
-      cy.contains('Blogs')
-      cy.contains('Agathan blogi')
-      cy.contains('Agatha Christie')
-      cy.contains('view')
+      //Varmistetaan, että luominen onnistui ja blogi tulee näkyviin
+      cy.get('.success').should('contain','A new blog').and('contain', 'added')
+      cy.get('.blog').should('contain', 'Agathan blogi')
     })
 
     //5.20: Testataan, että blogia voidaan likettää
     it('5.20: A blog can be liked', function() {
-      cy.contains('view').click()
-      cy.contains('Likes: 0')
-      cy.contains('like').click()
-      cy.contains('Likes: 1')
+      cy.contains('Testiblogi1').contains('view').click()
+      cy.contains('Testiblogi1').contains(5)
+      cy.contains('Testiblogi1').contains('like').click()
+      cy.contains('Testiblogi1').contains(6)
     })
 
     //Testataan, että blogi voidaan poistaa
@@ -100,7 +98,7 @@ describe('Blog app', function() {
     })
 
     //Testataan, että toisten käyttäjien lisäämää blogia ei voida poistaa
-    it('5.21: Blog cannot be removed if not user who added the blog', function() {
+    it('5.21: blog cannot be removed if not user who added the blog', function() {
 
       //Luodaan uusi käyttäjä, jolla kirjaudutaan sisään
       const user2 = {
@@ -109,12 +107,45 @@ describe('Blog app', function() {
         password: 'salasana'
       }
       cy.request('POST', 'http://localhost:3003/api/users/', user2)
-      cy.visit('http://localhost:3000')
+
+      //Kirjaudutaan ulos käyttäjätililtä, joka loi kaikki blogit ja kirjaudutaan sisään uudella tilillä
+      cy.get('#logout-button').click()
+      cy.login({ username: 'muumi', password: 'salasana' })
 
       //Remove-nappia ei pitäisi näkyä ollenkaan muiden lisäämissä blogeissa, testataan
-      cy.login({ username: 'muumi', password: 'salasana' })
       cy.contains('Testiblogi3').contains('view').click()
       cy.get('html').should('not.contain', 'Remove')
-    })
-  })
+
+    })//5.21: blog cannot be removed....
+
+    //Testataan, että blogit on likejen mukaisessa järjestyksessä suurimmasta pienimpään
+    it('5.22: blogs are ordered by likes', function() {
+
+      let edellinen = 9999999999
+
+      //Etsitään kaikki blogit
+      cy.get('.blog').then( blogs => {
+
+        //Haetaan blogioliot ja klikataan ne auki
+        cy.get(blogs).each( () => {
+          cy.contains('view').click().then(() => {
+          })
+        })
+      })
+
+      //Haetaan kaikki avatut lisätiedot ja vertaillaan likejen määrää
+      cy.get('div.togglableContent').then( ($divi) => {
+
+        cy.get($divi).then( () => {
+
+          //Otetaan yksittäisen blogin tykkäys ja verrataan sitä aina edellisen blogin tykkäysten määrään
+          cy.get('[data-testid=likes-amount]').each(($likes) => {
+            const lik = parseInt($likes.text())
+            expect(edellinen).to.be.at.least(lik)
+            edellinen = lik
+          })
+        })
+      })
+    })//it('5.22: blogs are ordered by likes'
+  })//describe('When logged in',
 })

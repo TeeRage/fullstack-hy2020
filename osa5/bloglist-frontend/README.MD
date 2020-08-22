@@ -94,3 +94,6 @@ Tehty testi, joka varmistaa, että blogia voi "likettää".
 ###### 5.21: blogilistan end to end -testit, step5
 Tehty testi, joka varmistaa, että blogin lisännyt käyttäjä voi poistaa blogin.
 Varmistettu myös, että poisto ei onnistu muilta kuin blogin lisänneeltä käyttäjältä.
+
+###### 5.22: blogilistan end to end -testit, step6
+Tehty testi, joka varmistaa, että blogit järjestetään likejen mukaiseen järjestykseen, eniten likejä saanut blogi ensin.
