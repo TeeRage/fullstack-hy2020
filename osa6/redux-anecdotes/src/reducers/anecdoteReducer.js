@@ -22,6 +22,26 @@ const asObject = (anecdote) => {
 //Mapataan anekdoottiobjektit initialStateksi
 const initialState = anecdotesAtStart.map(asObject)
 
+//Uuden anekdootin luominen
+export const createAnecdote = (content) => {
+  return {
+    type: 'NEW_ANECDOTE',
+    data: {
+      content,
+      id: getId(),
+      votes: 0
+    }
+  }
+}
+
+//Anekdootin äänestäminen
+export const voteAnecdote = (id) => {
+  return {
+    type: 'VOTE',
+    data: { id }
+  }
+}
+
 //Reducer
 const reducer = (state = initialState, action) => {
 

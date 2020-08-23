@@ -1,8 +1,8 @@
 import React from 'react'
+import { 
+  voteAnecdote, createAnecdote
+} from './reducers/anecdoteReducer' 
 import { useSelector, useDispatch } from 'react-redux'
-
-//Satunnainen id
-const generateId = () => (100000 * Math.random()).toFixed(0)
 
 const App = () => {
 
@@ -11,10 +11,7 @@ const App = () => {
 
   //Anekdootin äänestäminen
   const vote = (id) => {
-    dispatch({
-      type: 'VOTE',
-      data: { id }
-    })    
+    dispatch(voteAnecdote(id))  
   }
 
   //Uuden anekdootin lisääminen
@@ -22,14 +19,7 @@ const App = () => {
     event.preventDefault()
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
-    dispatch({
-      type: 'NEW_ANECDOTE',
-      data: {
-        content,
-        id: generateId(),
-        votes: 0
-      }
-    })
+    dispatch(createAnecdote(content))
   }
 
   return (

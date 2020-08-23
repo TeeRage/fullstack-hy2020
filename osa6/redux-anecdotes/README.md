@@ -16,3 +16,6 @@ Tehty sovellukseen mahdollisuus uusien anekdoottien lisäämiselle esimerkkien t
 
 ###### 6.5*: anekdootit, step3
 Huolehdittu siitä, että anekdootit pysyvät äänten mukaisessa suuruusjärjestyksessä.
+
+###### 6.6: anekdootit, step4
+Eriytetty action-olioiden luominen action creator -funktioihin ja sijoitettu ne tiedostoon src/reducers/anecdoteReducer.js. 
