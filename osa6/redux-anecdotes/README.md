@@ -27,3 +27,7 @@ Siirretty kaikki anekdootin luomiseen liittyvä logiikka uuteen komponenttiin.
 ###### 6.8: anekdootit, step6
 Eriytetty anekdoottilistan näyttäminen omaksi komponentikseen nimeltään AnecdoteList. 
 Siirretty kaikki anekdoottien äänestämiseen liittyvä logiikka uuteen komponenttiin.
+
+###### 6.9 anekdootit, step7
+Otettu käyttöön Redux DevTools. 
+Siirretty Redux-storen määrittely omaan tiedostoon store.js.
