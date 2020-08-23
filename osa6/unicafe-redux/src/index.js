@@ -40,11 +40,13 @@ const App = () => {
 
   return (
     <div>
+      <h1>Give feedback</h1>
       <button onClick={good}>good</button> 
       <button onClick={ok}>neutral</button> 
       <button onClick={bad}>bad</button>
       <button onClick={reset}>reset stats</button>
 
+      <h1>Statistics</h1>
       <div>good {store.getState().good}</div>
       <div>neutral {store.getState().ok}</div>
       <div>bad {store.getState().bad}</div>
