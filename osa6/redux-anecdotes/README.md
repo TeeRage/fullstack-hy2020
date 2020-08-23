@@ -19,3 +19,7 @@ Huolehdittu siitä, että anekdootit pysyvät äänten mukaisessa suuruusjärjes
 
 ###### 6.6: anekdootit, step4
 Eriytetty action-olioiden luominen action creator -funktioihin ja sijoitettu ne tiedostoon src/reducers/anecdoteReducer.js. 
+
+###### 6.7: anekdootit, step5
+Eriytetty uuden anekdootin luominen omaksi komponentikseen nimeltään AnecdoteForm. 
+Siirretty kaikki anekdootin luomiseen liittyvä logiikka uuteen komponenttiin.
