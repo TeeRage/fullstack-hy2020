@@ -10,3 +10,6 @@ Sovelluksen pohjaksi on kloonattu repositoriossa https://github.com/fullstack-hy
 ###### 6.1: 6.3: anekdootit, step1
 Toteutettu mahdollisuus anekdoottien äänestämiseen.
 Äänien määrä tallettuu redux-storeen.
+
+###### 6.4: anekdootit, step2
+Tehty sovellukseen mahdollisuus uusien anekdoottien lisäämiselle esimerkkien tapaan.
