@@ -23,3 +23,7 @@ Eriytetty action-olioiden luominen action creator -funktioihin ja sijoitettu ne 
 ###### 6.7: anekdootit, step5
 Eriytetty uuden anekdootin luominen omaksi komponentikseen nimeltään AnecdoteForm. 
 Siirretty kaikki anekdootin luomiseen liittyvä logiikka uuteen komponenttiin.
+
+###### 6.8: anekdootit, step6
+Eriytetty anekdoottilistan näyttäminen omaksi komponentikseen nimeltään AnecdoteList. 
+Siirretty kaikki anekdoottien äänestämiseen liittyvä logiikka uuteen komponenttiin.

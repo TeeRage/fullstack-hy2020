@@ -60,7 +60,7 @@ const reducer = (state = initialState, action) => {
 
       //Mapataan anekdootit listaan (järjestämättömänä)
       const anekdootit = state.map(anecdote =>
-        anecdote.id !== id ? anecdote : changedAnecdote 
+        anecdote.id !== id ? anecdote : changedAnecdote
       )
       
       //Järjestetään anekdootit äänimäärän mukaan ennen palauttamista

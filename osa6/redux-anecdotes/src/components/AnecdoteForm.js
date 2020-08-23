@@ -5,7 +5,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 
-const AnecdoteForm = (props) => {
+const AnecdoteForm = () => {
 
   const dispatch = useDispatch()  
 
@@ -17,6 +17,7 @@ const AnecdoteForm = (props) => {
     dispatch(createAnecdote(content))
   }
 
+  //Form lisäämiselle
   return (
     <div>
       <h2>create new</h2>
