@@ -7,8 +7,10 @@ const anecdotesAtStart = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
+//Satunnainen id
 const getId = () => (100000 * Math.random()).toFixed(0)
 
+//Muutetaan anekdootit objekteiksi, joilla id, sisältö ja äänimäärä
 const asObject = (anecdote) => {
   return {
     content: anecdote,
@@ -17,13 +19,30 @@ const asObject = (anecdote) => {
   }
 }
 
+//Mapataan anekdoottiobjektit initialStateksi
 const initialState = anecdotesAtStart.map(asObject)
 
+//Reducer
 const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
+
+  //console.log('state now: ', state)
   console.log('action', action)
 
-  return state
+  switch(action.type){
+
+    case 'VOTE':
+      const id = action.data.id
+      const anecdoteToChange = state.find(a => a.id === id)
+      const changedAnecdote = { 
+        ...anecdoteToChange, 
+        votes: anecdoteToChange.votes + 1 
+      }
+      return state.map(anecdote =>
+        anecdote.id !== id ? anecdote : changedAnecdote 
+      ) 
+    
+    default: return state
+  }   
 }
 
 export default reducer

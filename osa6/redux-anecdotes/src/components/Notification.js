@@ -1,14 +1,24 @@
+/**
+ * Sovelluksen antamien tiedotteiden näyttäminen käyttäjälle.
+  * Tyhjennetåään ilmoitus, kun null, muutoin annetaan typen mukaan joko success tai error -ilmoitus
+*/
 import React from 'react'
 
-const Notification = () => {
+const Notification = ({ notification }) => {
+
+  if (notification === null) {
+    return null
+  }
+
   const style = {
     border: 'solid',
     padding: 10,
     borderWidth: 1
   }
+  
   return (
-    <div style={style}>
-      render here notification...
+    <div className={notification.type} id='notificationDiv' style={style}>
+      {notification.message}
     </div>
   )
 }
