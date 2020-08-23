@@ -13,3 +13,6 @@ Toteutettu mahdollisuus anekdoottien äänestämiseen.
 
 ###### 6.4: anekdootit, step2
 Tehty sovellukseen mahdollisuus uusien anekdoottien lisäämiselle esimerkkien tapaan.
+
+###### 6.5*: anekdootit, step3
+Huolehdittu siitä, että anekdootit pysyvät äänten mukaisessa suuruusjärjestyksessä.

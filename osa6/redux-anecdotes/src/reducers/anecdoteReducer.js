@@ -37,9 +37,14 @@ const reducer = (state = initialState, action) => {
         ...anecdoteToChange, 
         votes: anecdoteToChange.votes + 1 
       }
-      return state.map(anecdote =>
+
+      //Mapataan anekdootit listaan (järjestämättömänä)
+      const anekdootit = state.map(anecdote =>
         anecdote.id !== id ? anecdote : changedAnecdote 
-      ) 
+      )
+      
+      //Järjestetään anekdootit äänimäärän mukaan ennen palauttamista
+      return anekdootit.sort((a,b) => (a.votes < b.votes) ? 1 : -1)
     
     case 'NEW_ANECDOTE':
       return [...state, action.data]
