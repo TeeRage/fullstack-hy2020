@@ -40,3 +40,7 @@ Tässä vaiheessa sovellus ei vielä osaa käyttää Notification komponenttia j
 ###### 6.11 paremmat anekdootit, step9
 Laajennettu sovellusta siten, että se näyttää Notification-komponentin avulla viestin viiden sekunnin ajan, kun sovelluksessa äänestetään tai luodaan uusia anekdootteja.
 Notifikaation asettamista ja poistamista varten toteutettu action creatorit.
+
+###### 6.12* paremmat anekdootit, step10
+Toteutettu sovellukseen näytettävien muistiinpanojen filtteröiminen.
+Luotu uusi reduceri filterReducer ja filtterin ruudulla näyttämistä varten komponentti Filter.

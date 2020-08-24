@@ -9,8 +9,18 @@ import { notify, removeNotification } from '../reducers/notificationReducer'
 const AnecdoteList = () => {
 
   const dispatch = useDispatch()  
-  const anecdotes = useSelector(state => state.anecdotes)
-  
+
+  //Näytettävät anekdootit
+  const anecdotes = useSelector(state => {
+    //Jos filtteri tyhjä, näytetään kaikki anekdootit
+    if( state.filters === 'ALL'){
+      return state.anecdotes
+    }    
+    else{ //Jos filtteriin kirjoitettu jotain, palautetaan filtteröity sisältö
+      return state.anecdotes.filter(a => a.content.toLowerCase().includes(state.filters.toLowerCase()))
+    }
+  })
+
   //Metodi ilmoituksille, kestää 5 sekuntia
   const notifyWith = (message) => {
     dispatch(notify(message))
