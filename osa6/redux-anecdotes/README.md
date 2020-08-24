@@ -44,3 +44,9 @@ Notifikaation asettamista ja poistamista varten toteutettu action creatorit.
 ###### 6.12* paremmat anekdootit, step10
 Toteutettu sovellukseen näytettävien muistiinpanojen filtteröiminen.
 Luotu uusi reduceri filterReducer ja filtterin ruudulla näyttämistä varten komponentti Filter.
+
+###### 6.13 anekdootit ja backend, step1
+Haetaan sovelluksen käynnistyessä anekdootit json-serverillä toteutetusta backendistä.
+Luotu projektin juuren tiedoston anecdotes.json, johon tallennettu tietokannan alkutila.
+Sisältö backendille kopioitu osoitteesta https://github.com/fullstack-hy2020/misc/blob/master/anecdotes.json.
+Tehty axiosia hyödyntävä backendistä dataa hakeva metodi tiedostoon services/anecdotes.js
