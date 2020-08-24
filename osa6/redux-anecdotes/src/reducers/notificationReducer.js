@@ -1,3 +1,4 @@
+//Uuden ilmoituksen näyttäminen
 export const notify = (message) => {
   return {
     type: 'NOTIFY',
@@ -5,7 +6,15 @@ export const notify = (message) => {
   }
 }
 
-const notificationReducer = (state = 'Testiviesti', action) => {
+//Ilmoituksen "poistaminen" näkyvistä
+export const removeNotification = () => {
+  return {
+    type: 'CLEAR',
+    data: null
+  }
+}
+
+const notificationReducer = (state = null, action) => {
 
   console.log('action', action)
 
@@ -13,6 +22,9 @@ const notificationReducer = (state = 'Testiviesti', action) => {
 
     case 'NOTIFY':
       return action.data.message
+
+    case 'CLEAR':
+      return action.data
 
     default:
       return state

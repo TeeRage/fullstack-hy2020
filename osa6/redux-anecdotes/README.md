@@ -36,3 +36,7 @@ Siirretty Redux-storen määrittely omaan tiedostoon store.js.
 Laajennettu Notification komponenttia siten, että se renderöi redux-storeen talletetun viestin.
 Tehty toiminnallisuutta varten oma reduceri ja siirrytty käyttämään sovelluksessa yhdistettyä reduceria tämän osan materiaalin tapaan.
 Tässä vaiheessa sovellus ei vielä osaa käyttää Notification komponenttia järkevällä tavalla, mutta sovellus toimii ja näyttää notificationReducerin alkuarvoksi asettaman viestin.
+
+###### 6.11 paremmat anekdootit, step9
+Laajennettu sovellusta siten, että se näyttää Notification-komponentin avulla viestin viiden sekunnin ajan, kun sovelluksessa äänestetään tai luodaan uusia anekdootteja.
+Notifikaation asettamista ja poistamista varten toteutettu action creatorit.

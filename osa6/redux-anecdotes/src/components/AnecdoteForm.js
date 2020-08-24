@@ -4,10 +4,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
+import { notify, removeNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = () => {
 
   const dispatch = useDispatch()  
+
+  //Metodi ilmoituksille, kestää 5 sekuntia
+  const notifyWith = (message) => {
+    dispatch(notify(message))
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, 5000)
+  } 
 
   //Uuden anekdootin lisääminen
   const addAnecdote = (event) => {    
@@ -15,6 +24,7 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     dispatch(createAnecdote(content))
+    notifyWith(`Lisäsit anekdootin '${content}'`)
   }
 
   //Form lisäämiselle

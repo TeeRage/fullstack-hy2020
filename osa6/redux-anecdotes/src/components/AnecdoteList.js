@@ -4,14 +4,26 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
+import { notify, removeNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
 
   const dispatch = useDispatch()  
   const anecdotes = useSelector(state => state.anecdotes)
+  
+  //Metodi ilmoituksille, kestää 5 sekuntia
+  const notifyWith = (message) => {
+    dispatch(notify(message))
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, 5000)
+  }
 
   //Anekdootin äänestäminen
-  const vote = (id) => {dispatch(voteAnecdote(id))}
+  const vote = (id, content) => {
+    dispatch(voteAnecdote(id))
+    notifyWith(`Äänestit '${content}'`)
+  }
 
   //Näytetään lista anekdooteista
   return (
@@ -23,7 +35,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
           </div>
         </div>
       )}
