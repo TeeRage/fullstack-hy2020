@@ -1,14 +1,17 @@
 /**
- * Sovelluksen antamien tiedotteiden näyttäminen käyttäjälle.
-  * Tyhjennetåään ilmoitus, kun null, muutoin annetaan typen mukaan joko success tai error -ilmoitus
+* Sovelluksen antamien tiedotteiden näyttäminen käyttäjälle.
+* Renderöi redux-storeen talletetun viestin.
 */
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { notify } from '../reducers/notificationReducer'
 
-const Notification = ({ notification }) => {
+const Notification = () => {
 
-  if (notification === null) {
-    return null
-  }
+  const dispatch = useDispatch()  
+  const notification = useSelector(state => state.notifications)
+  const notifyWithMessage = (message) => {dispatch(notify(message))}
+  //{notifyWithMessage('TESTIVIESTI')}
 
   const style = {
     border: 'solid',
@@ -17,8 +20,8 @@ const Notification = ({ notification }) => {
   }
   
   return (
-    <div className={notification.type} id='notificationDiv' style={style}>
-      {notification.message}
+    <div id='notificationDiv' style={style}>
+      {notification}      
     </div>
   )
 }
