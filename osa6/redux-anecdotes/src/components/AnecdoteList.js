@@ -10,7 +10,7 @@ const AnecdoteList = () => {
 
   const dispatch = useDispatch()  
 
-  //Näytettävät anekdootit
+  //Näytettävät anekdootit, filtteröinti
   const anecdotes = useSelector(state => {
     //Jos filtteri tyhjä, näytetään kaikki anekdootit
     if( state.filters === 'ALL'){
@@ -29,10 +29,16 @@ const AnecdoteList = () => {
     }, 5000)
   }
 
-  //Anekdootin äänestäminen
-  const vote = (id, content) => {
-    dispatch(voteAnecdote(id))
-    notifyWith(`Äänestit '${content}'`)
+  //Anekdootin äänestäminen (+1 votes)
+  const vote = async (anecdote) => {
+
+    const newAnecdote = {
+      content: anecdote.content,
+      votes: anecdote.votes + 1
+    }
+    
+    dispatch(voteAnecdote(anecdote.id, newAnecdote))
+    notifyWith(`Äänestit '${anecdote.content}'`)
   }
 
   //Näytetään lista anekdooteista
@@ -45,7 +51,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}

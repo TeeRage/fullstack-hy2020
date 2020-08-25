@@ -1,35 +1,5 @@
 import anecdoteService from '../services/anecdotes'
 
-//Uuden anekdootin luominen, backend generoi id:n automaagisesti
-export const createAnecdote = content => {
-  return async dispatch => {
-    const newAnecdote = await anecdoteService.createNew(content)
-    dispatch({
-      type: 'NEW_ANECDOTE',
-      data: newAnecdote,
-    })
-  }
-}
-
-//Anekdootin äänestäminen
-export const voteAnecdote = (id) => {
-  return {
-    type: 'VOTE',
-    data: { id }
-  }
-}
-
-//Tietokannasta anekdoottien hakeminen käynnistyksen yhteydessä
-export const initializeAnecdotes = () => {
-  return async dispatch => {
-    const anecdotes = await anecdoteService.getAll()
-    dispatch({
-      type: 'INIT_ANECDOTES',
-      data: anecdotes,
-    })    
-  }
-}
-
 //Reducer
 const anecdoteReducer = (state = [], action) => {
 
@@ -62,6 +32,43 @@ const anecdoteReducer = (state = [], action) => {
         
     default: return state
   }   
+}
+
+//Tietokannasta anekdoottien hakeminen käynnistyksen yhteydessä
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    
+    //Järjestetään anekdootit tykkäysten mukaan
+    anecdotes.sort((a,b) => (a.votes < b.votes) ? 1 : -1)
+
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes,
+    })    
+  }
+}
+
+//Uuden anekdootin luominen, backend generoi id:n automaagisesti
+export const createAnecdote = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: newAnecdote,
+    })
+  }
+}
+
+//Anekdootin äänestäminen, content saadaan AnecdoteList.js -tiedostolta
+export const voteAnecdote = (id, content) => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.voteAnecdote(id, content)
+    dispatch ({
+      type: 'VOTE',
+      data: newAnecdote
+    })
+  }
 }
 
 export default anecdoteReducer

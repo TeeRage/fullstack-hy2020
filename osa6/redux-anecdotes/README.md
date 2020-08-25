@@ -60,3 +60,6 @@ Muutettu redux-storen alustus tapahtumaan redux-thunk-kirjaston avulla toteutett
 
 ###### 6.16 anekdootit ja backend, step4
 Muutettu myös uuden anekdootin luominen tapahtumaan redux-thunk-kirjaston avulla toteutettuihin asynkronisiin actioneihin
+
+###### 6.17 anekdootit ja backend, step5
+Muutettu anekdoottien äänestämistä siten, että äänestys talletetaan backendiin redux-thunk-kirjastoa hyödyntäen.

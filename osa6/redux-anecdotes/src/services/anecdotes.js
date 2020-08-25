@@ -18,4 +18,10 @@ const createNew = async (content) => {
   return response.data
 }
 
-export default { getAll, createNew }
+//Muokkaa yksittäistä anekdoottia
+const voteAnecdote = async (id, newObject) => {
+  const request = await axios.put(`${baseUrl}/${id}`, newObject)
+  return request.data
+}
+
+export default { getAll, createNew, voteAnecdote }
