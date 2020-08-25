@@ -68,3 +68,6 @@ Muutettu anekdoottien äänestämistä siten, että äänestys talletetaan backe
 Tehty asynkroninen action creator, joka mahdollistaa notifikaation antamisen seuraavasti: dispatch(setNotification(`you voted '${anecdote.content}'`, 10)),
 eli ensimmäisenä parametrina on renderöitävä teksti ja toisena notifikaation näyttöaika sekunneissa.
 Otettu paranneltu notifikaatiotapa käyttöön.
+
+###### 6.19 anekdootit ja connect, step1
+Muutettu notifikaatioiden näyttämisestä huolehtiva komponentti käyttämään useSelector-hookin sijaan connect-funktiota.
