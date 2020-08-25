@@ -63,3 +63,8 @@ Muutettu myös uuden anekdootin luominen tapahtumaan redux-thunk-kirjaston avull
 
 ###### 6.17 anekdootit ja backend, step5
 Muutettu anekdoottien äänestämistä siten, että äänestys talletetaan backendiin redux-thunk-kirjastoa hyödyntäen.
+
+###### 6.18 anekdootit ja backend, step6
+Tehty asynkroninen action creator, joka mahdollistaa notifikaation antamisen seuraavasti: dispatch(setNotification(`you voted '${anecdote.content}'`, 10)),
+eli ensimmäisenä parametrina on renderöitävä teksti ja toisena notifikaation näyttöaika sekunneissa.
+Otettu paranneltu notifikaatiotapa käyttöön.

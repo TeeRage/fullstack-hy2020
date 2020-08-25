@@ -4,7 +4,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
-import { notify, removeNotification } from '../reducers/notificationReducer'
+import { notify } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
 
@@ -21,14 +21,6 @@ const AnecdoteList = () => {
     }
   })
 
-  //Metodi ilmoituksille, kestää 5 sekuntia
-  const notifyWith = (message) => {
-    dispatch(notify(message))
-    setTimeout(() => {
-      dispatch(removeNotification())
-    }, 5000)
-  }
-
   //Anekdootin äänestäminen (+1 votes)
   const vote = async (anecdote) => {
 
@@ -38,7 +30,7 @@ const AnecdoteList = () => {
     }
     
     dispatch(voteAnecdote(anecdote.id, newAnecdote))
-    notifyWith(`Äänestit '${anecdote.content}'`)
+    dispatch(notify(`Äänestit '${anecdote.content}'`, 3))
   }
 
   //Näytetään lista anekdooteista
