@@ -57,3 +57,6 @@ Muutettu uusien anekdoottien luomista siten, että uudet anekdootit talletetaan 
 ###### 6.15 anekdootit ja backend, step3
 Asennettu Redux-thunk.
 Muutettu redux-storen alustus tapahtumaan redux-thunk-kirjaston avulla toteutettuun asynkroniseen actioniin.
+
+###### 6.16 anekdootit ja backend, step4
+Muutettu myös uuden anekdootin luominen tapahtumaan redux-thunk-kirjaston avulla toteutettuihin asynkronisiin actioneihin
