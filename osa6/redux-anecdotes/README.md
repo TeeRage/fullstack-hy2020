@@ -50,3 +50,6 @@ Haetaan sovelluksen käynnistyessä anekdootit json-serverillä toteutetusta bac
 Luotu projektin juuren tiedoston anecdotes.json, johon tallennettu tietokannan alkutila.
 Sisältö backendille kopioitu osoitteesta https://github.com/fullstack-hy2020/misc/blob/master/anecdotes.json.
 Tehty axiosia hyödyntävä backendistä dataa hakeva metodi tiedostoon services/anecdotes.js
+
+###### 6.14 anekdootit ja backend, step2
+Muutettu uusien anekdoottien luomista siten, että uudet anekdootit talletetaan backendiin.
