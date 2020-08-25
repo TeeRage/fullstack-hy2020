@@ -1,3 +1,5 @@
+import anecdoteService from '../services/anecdotes'
+
 //Uuden anekdootin luominen, backend generoi id:n automaagisesti
 export const createAnecdote = (data) => {
   return {
@@ -15,10 +17,13 @@ export const voteAnecdote = (id) => {
 }
 
 //Tietokannasta anekdoottien hakeminen käynnistyksen yhteydessä
-export const initializeAnecdotes = (anecdotes) => {
-  return {
-    type: 'INIT_ANECDOTES',
-    data: anecdotes,
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes,
+    })    
   }
 }
 

@@ -53,3 +53,7 @@ Tehty axiosia hyödyntävä backendistä dataa hakeva metodi tiedostoon services
 
 ###### 6.14 anekdootit ja backend, step2
 Muutettu uusien anekdoottien luomista siten, että uudet anekdootit talletetaan backendiin.
+
+###### 6.15 anekdootit ja backend, step3
+Asennettu Redux-thunk.
+Muutettu redux-storen alustus tapahtumaan redux-thunk-kirjaston avulla toteutettuun asynkroniseen actioniin.
