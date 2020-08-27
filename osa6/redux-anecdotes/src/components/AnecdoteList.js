@@ -1,5 +1,5 @@
 /**
- * Anekdoottilistan näyttäminen ja anekdoottien äänestämiseen liittyvä logiikka.
+ * Anekdoottilistan anekdoottien näyttämiseenen ja äänestämiseen liittyvä logiikka.
  */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -30,7 +30,7 @@ const AnecdoteList = () => {
     }
     
     dispatch(voteAnecdote(anecdote.id, newAnecdote))
-    dispatch(notify(`Äänestit '${anecdote.content}'`, 3))
+    dispatch(notify(`Äänestit '${anecdote.content}'`, 5))
   }
 
   //Näytetään lista anekdooteista

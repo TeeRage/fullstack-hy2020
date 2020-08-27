@@ -1,6 +1,5 @@
 /**
 * Sovelluksen antamien tiedotteiden näyttäminen käyttäjälle.
-* Renderöi redux-storeen talletetun viestin.
 */
 import React from 'react'
 import { connect } from 'react-redux'

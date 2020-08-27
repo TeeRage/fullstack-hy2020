@@ -1,18 +1,23 @@
 //Uuden ilmoituksen näyttäminen, kestää sekunneissa (time) annetun ajan
 export const notify = (message, time) => {
 
-  return async dispatch => {
-    dispatch({
-      type: 'NOTIFY',
-      data: { message }
-    })
+  return async (dispatch) => {
+
+    dispatch(showNotification(message))
+
     setTimeout(() => {
-      dispatch({
-        type: 'CLEAR',
-        data: null
-      })
+      dispatch(hideNotification())
     }, time*1000)
-  }
+
+  } 
+}
+
+function showNotification(message) {
+  return { type: 'NOTIFY', data: { message } }
+}
+
+function hideNotification() {
+  return { type: 'CLEAR',  data: null }
 }
 
 const notificationReducer = (state = null, action) => {
