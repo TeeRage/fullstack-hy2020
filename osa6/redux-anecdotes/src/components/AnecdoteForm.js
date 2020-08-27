@@ -2,21 +2,22 @@
  * Uuden anekdootin luomiseen liittyvä logiikka.
  */
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { notify } from '../reducers/notificationReducer'
 
-const AnecdoteForm = () => {
-
-  const dispatch = useDispatch()  
+const AnecdoteForm = (props) => {
 
   //Uuden anekdootin lisääminen
   const addAnecdote = async (event) => {    
+    
     event.preventDefault()
+
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
-    dispatch(createAnecdote(content))
-    dispatch(notify(`Lisäsit anekdootin '${content}'`, 3))
+
+    props.notify(`Lisäsit anekdootin '${content}'`, 3)
+    props.createAnecdote(content)
   }
 
   //Form lisäämiselle
@@ -33,4 +34,8 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+//Koska komponentti ei tarvitse storen tilasta mitään, on funktion connect ensimmäinen parametri null.
+export default connect(
+  null, 
+  { createAnecdote, notify },
+)(AnecdoteForm)

@@ -71,3 +71,6 @@ Otettu paranneltu notifikaatiotapa käyttöön.
 
 ###### 6.19 anekdootit ja connect, step1
 Muutettu notifikaatioiden näyttämisestä huolehtiva komponentti käyttämään useSelector-hookin sijaan connect-funktiota.
+
+###### 6.20 anekdootit ja connect, step2
+Tehty sama komponentille AnecdoteForm.
