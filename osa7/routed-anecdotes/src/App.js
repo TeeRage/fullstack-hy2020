@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link, useParams,
 } from "react-router-dom"
 
+//Linkit, joiden avulla sovelluksessa muutetaan näkymää
 const Menu = () => {
   const padding = {
     paddingRight: 5
@@ -17,15 +18,32 @@ const Menu = () => {
   )
 }
 
+//Anekdoottien listan näyttäminen
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link></li>)}
     </ul>
   </div>
 )
 
+//Yksittäisen anekdootin tietojen näyttäminen
+const Anecdote = ({ anecdotes }) => {
+
+  const id = useParams().id
+  const anecdoteFound =  anecdotes.find(a => a.id === id)
+
+  return (
+    <div>
+      <h2>{anecdoteFound.content} by {anecdoteFound.author}</h2>
+      <p>Has {anecdoteFound.votes} votes</p>
+      <p>For more info see <a href = {anecdoteFound.info}>{anecdoteFound.info}</a></p>
+    </div>
+  )
+}
+
+//About-näkymä
 const About = () => (
   <div>
     <h2>About anecdote app</h2>
@@ -40,6 +58,7 @@ const About = () => (
   </div>
 )
 
+//Footer, aina näkyvissä
 const Footer = () => (
   <div>
     Anecdote app for <a href='https://courses.helsinki.fi/fi/tkt21009'>Full Stack -websovelluskehitys</a>.
@@ -47,11 +66,11 @@ const Footer = () => (
   </div>
 )
 
+//Uuden anekdootin luomiseen liittyvä näkumä ja logiikka
 const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -83,9 +102,9 @@ const CreateNew = (props) => {
       </form>
     </div>
   )
+}//CreateNew
 
-}
-
+//App
 const App = () => {
 
   const [anecdotes, setAnecdotes] = useState([
@@ -131,19 +150,23 @@ const App = () => {
         <h1>Software anecdotes</h1>
         <Menu />
         <Switch>            
+          <Route path="/anecdotes/:id">
+            <Anecdote anecdotes={anecdotes} />
+          </Route>
           <Route path="/about">
             <About />
           </Route>
           <Route path="/create">
             <CreateNew addNew={addNew} />
-          </Route>
+          </Route>          
           <Route path="/">
             <AnecdoteList anecdotes={anecdotes} />
           </Route>  
         </Switch>
+        <br/>
         <Footer />
     </Router>
   )
-}
+}//App
 
 export default App;

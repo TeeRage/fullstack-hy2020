@@ -10,4 +10,7 @@ Sovelluksen pohjaksi on kloonattu repositoriossa https://github.com/fullstack-hy
 Lisätty sovellukseen React Router siten, että Menu-komponentissa olevia linkkejä klikkailemalla saadaan säädeltyä näytettävää näkymää.
 Sovelluksen juuressa, eli polulla / näytetään anekdoottien lista.
 Pohjalla oleva Footer-komponentti näkyy aina.
-Uuden anekdootin luominen tapahtuu klikkaamalla linkkiä create new.
+
+###### 7.2: routed anecdotes, step2
+Toteutettu sovellukseen yksittäisen anekdootin tiedot näyttävä näkymä.
+Yksittäisen anekdootin sivulle navigoidaan klikkaamalla anekdootin nimeä.
