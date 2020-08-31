@@ -14,3 +14,6 @@ Pohjalla oleva Footer-komponentti näkyy aina.
 ###### 7.2: routed anecdotes, step2
 Toteutettu sovellukseen yksittäisen anekdootin tiedot näyttävä näkymä.
 Yksittäisen anekdootin sivulle navigoidaan klikkaamalla anekdootin nimeä.
+
+###### 7.3: routed anecdotes, step3
+Parannettu uuden anekdootin luomislomakkeen toiminnallisuutta siten, että luomisen jälkeen siirrytään automaattisesti kaikkien anekdoottien näkymään ja käyttäjälle näytetään 10 sekunnin ajan onnistuneesta lisäyksestä kertova notifikaatio.

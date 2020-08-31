@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, useParams,
+  Switch, Route, Link, Redirect, useParams
 } from "react-router-dom"
 
 //Linkit, joiden avulla sovelluksessa muutetaan näkymää
@@ -23,7 +23,12 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link></li>)}
+      {anecdotes.map(anecdote => 
+        <li key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`}>
+            {anecdote.content}
+          </Link>
+        </li>)}
     </ul>
   </div>
 )
@@ -68,12 +73,15 @@ const Footer = () => (
 
 //Uuden anekdootin luomiseen liittyvä näkumä ja logiikka
 const CreateNew = (props) => {
+
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
   const handleSubmit = (e) => {
+
     e.preventDefault()
+
     props.addNew({
       content,
       author,
@@ -104,6 +112,23 @@ const CreateNew = (props) => {
   )
 }//CreateNew
 
+const Notification = (props) => {
+  
+  const style = {
+    padding: 10
+  }
+
+  if (props.notification === ''){
+    return null
+  }
+
+  return (
+    <div id='notificationDiv' style={style}>
+      {props.notification}
+    </div>
+  )
+}
+
 //App
 const App = () => {
 
@@ -122,17 +147,22 @@ const App = () => {
       votes: 0,
       id: '2'
     }
-  ])
+  ]) 
 
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
+    
+    setNotification(`A new anecdote '${anecdote.content}' created!`)
     anecdote.id = (Math.random() * 10000).toFixed(0)
-    setAnecdotes(anecdotes.concat(anecdote))
+    setAnecdotes(anecdotes.concat(anecdote))    
+
+    setTimeout(() => {
+      setNotification('')
+    }, 5000)
   }
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+  const anecdoteById = (id) => anecdotes.find(a => a.id === id)
 
   const vote = (id) => {
     const anecdote = anecdoteById(id)
@@ -148,7 +178,8 @@ const App = () => {
   return (
     <Router>
         <h1>Software anecdotes</h1>
-        <Menu />
+        <Menu />        
+        <Notification notification = {notification}/>
         <Switch>            
           <Route path="/anecdotes/:id">
             <Anecdote anecdotes={anecdotes} />
@@ -157,7 +188,7 @@ const App = () => {
             <About />
           </Route>
           <Route path="/create">
-            <CreateNew addNew={addNew} />
+            {notification === '' ? <CreateNew addNew={addNew} /> : <Redirect to="/" />}
           </Route>          
           <Route path="/">
             <AnecdoteList anecdotes={anecdotes} />
