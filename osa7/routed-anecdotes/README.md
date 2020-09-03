@@ -17,3 +17,7 @@ Yksittäisen anekdootin sivulle navigoidaan klikkaamalla anekdootin nimeä.
 
 ###### 7.3: routed anecdotes, step3
 Parannettu uuden anekdootin luomislomakkeen toiminnallisuutta siten, että luomisen jälkeen siirrytään automaattisesti kaikkien anekdoottien näkymään ja käyttäjälle näytetään 10 sekunnin ajan onnistuneesta lisäyksestä kertova notifikaatio.
+
+###### 7.4: anekdoottisovellus ja hookit step1
+Yksinkertaistettu sovelluksen uuden anekdootin luomiseen käytettävän lomakkeen käyttöä useField custom-hookin avulla.
+Hook talletettu tiedostoon /src/hooks/index.js.
