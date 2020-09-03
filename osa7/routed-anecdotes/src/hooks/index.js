@@ -1,10 +1,9 @@
 /**
 * Uuden anekdootin luomiseen käytettävän lomakkeen käyttö useField custom-hookin avulla.
-* @type Lomakkeen (form) input kentän tyyppi (text/date/number...)
 */
 import { useState } from 'react'
 
-export const useField = (type) => {
+export const useField = () => {
 
   const [value, setValue] = useState('')
 
@@ -17,9 +16,10 @@ export const useField = (type) => {
   }
 
   return {
-    type,
-    value,
-    onChange,
-    reset  
+    reset,
+    bind: {
+      value,
+      onChange
+    }
   }
 }

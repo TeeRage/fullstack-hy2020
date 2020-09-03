@@ -26,3 +26,7 @@ Hook talletettu tiedostoon /src/hooks/index.js.
 Lisätty lomakkeeseen nappi, joka mahdollistaa syötekenttien tyhjentämisen.
 Laajennettu hookia siten, että se tarjoaa operaation reset kentän tyhjentämiseen.
 Tässä vaiheessa ei välitetä konsolin antamasta virheestä 'Warning: Invalid value for prop `reset` on <input> tag'.
+
+###### 7.6: anekdoottisovellus ja hookit step3
+Tehty sovellukseen korjaus, joka poistaa varoituksen 'Invalid value for prop reset' on <input> tag'.
+Warningin syynä oli se, että elementille input ei kuuluisi antaa propsia reset (<input {...content}/>).

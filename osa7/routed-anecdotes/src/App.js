@@ -75,9 +75,10 @@ const Footer = () => (
 //Uuden anekdootin luomiseen liittyvä näkumä ja logiikka
 const CreateNew = (props) => {
 
-  const content = useField('text')
-  const author = useField('text')
-  const info = useField('text')
+   //Käytetään custom hookia useField (hooks/index) ja nimetään käytettävät muuttujat ja niiden "tyhjennysfunktiot"
+  const {bind:content, reset:resetContent} = useField()
+  const {bind:author, reset:resetAuthor} = useField()
+  const {bind:info, reset:resetInfo} = useField()
 
   const handleSubmit = (e) => {
 
@@ -89,13 +90,14 @@ const CreateNew = (props) => {
       info: info.value,
       votes: 0
     })
-  }
+  }  
 
+  //Tyhjennetään lomakkeeseen syötetty teksti
   const resetForm = (e) => {
     e.preventDefault()
-    content.reset()
-    author.reset()
-    info.reset()
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
