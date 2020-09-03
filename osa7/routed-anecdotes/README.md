@@ -21,3 +21,8 @@ Parannettu uuden anekdootin luomislomakkeen toiminnallisuutta siten, että luomi
 ###### 7.4: anekdoottisovellus ja hookit step1
 Yksinkertaistettu sovelluksen uuden anekdootin luomiseen käytettävän lomakkeen käyttöä useField custom-hookin avulla.
 Hook talletettu tiedostoon /src/hooks/index.js.
+
+###### 7.5: anekdoottisovellus ja hookit step2
+Lisätty lomakkeeseen nappi, joka mahdollistaa syötekenttien tyhjentämisen.
+Laajennettu hookia siten, että se tarjoaa operaation reset kentän tyhjentämiseen.
+Tässä vaiheessa ei välitetä konsolin antamasta virheestä 'Warning: Invalid value for prop `reset` on <input> tag'.
