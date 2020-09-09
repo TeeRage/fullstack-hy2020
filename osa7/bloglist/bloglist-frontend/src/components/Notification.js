@@ -1,21 +1,28 @@
+/**
+* Sovelluksen antamien tiedotteiden näyttäminen käyttäjälle.
+*/
 import React from 'react'
+import { connect } from 'react-redux'
 
 const Notification = ({ notification }) => {
-  if ( !notification ) {
+
+  if (!notification) {
     return null
   }
 
   const style = {
-    borderStyle: 'solid',
-    borderRadius: 5,
+    border: 'solid',
     padding: 10,
-    color: notification.type === 'success' ? 'green' : 'red',
-    background: 'lightgrey'
+    borderWidth: 1
   }
 
-  return <div style={style}>
-    {notification.message}
-  </div>
+  return (
+    <div style={style}>
+      {notification}
+    </div>
+  )
 }
 
-export default Notification
+export default connect(
+  (state) => ({ notification: state.notification })
+)(Notification)
