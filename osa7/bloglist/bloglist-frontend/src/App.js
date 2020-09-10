@@ -1,84 +1,42 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
 import BlogList from './components/BlogList'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import NewBlog from './components/NewBlog'
-
-import loginService from './services/login'
-import storage from './utils/storage'
+import LoginForm from './components/LoginForm'
 
 import { initializeBlogs } from './reducers/blogReducer'
-import { useDispatch } from 'react-redux'
+import { loadUser, logoutUser } from './reducers/userReducer'
 
-
-const App = () => {
+const App = ({ user }) => {
 
   const dispatch = useDispatch()
 
-  //Haetaan blogit
+  //Togglablelle ref tiedot
+  const blogFormRef = React.createRef()
+
+  //Haetaan blogit Redux storesta
   useEffect(() => {
     dispatch(initializeBlogs())
   }, [dispatch])
 
-  //Käyttäjänhallintaan liittyvät jutut
-  const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const blogFormRef = React.createRef()
-
+  //Ladataan Redux storesta kirjautuneen käyttäjän tiedot
   useEffect(() => {
-    const user = storage.loadUser()
-    setUser(user)
-  }, [])
+    dispatch(loadUser())
+  }, [dispatch])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password
-      })
-      setUsername('')
-      setPassword('')
-      setUser(user)
-      //notifyWith(`${user.name} welcome back!`)
-      storage.saveUser(user)
-    } catch(exception) {
-      //notifyWith('wrong username/password', 'error')
-    }
-  }
-
+  //Käyttäjän uloskirjautuminen
   const handleLogout = () => {
-    setUser(null)
-    storage.logoutUser()
+    dispatch(logoutUser())
   }
 
+  //Näytetään kirjautumislomake, jos ei ole kirjautunutta käyttäjää
   if ( !user ) {
     return (
-      <div>
-        <h2>login to application</h2>
-        <Notification />
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-            <input
-              id='username'
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password
-            <input
-              id='password'
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button id='login'>login</button>
-        </form>
-      </div>
+      <LoginForm/>
     )
   }
 
@@ -86,15 +44,15 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification />
-      <p>
-        {user.name} logged in <button onClick={handleLogout}>logout</button>
-      </p>
+      <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
       <Togglable buttonLabel='create new blog'  ref={blogFormRef}>
         <NewBlog />
       </Togglable>
-      <BlogList user={user}/>
+      <BlogList/>
     </div>
   )
 }
 
-export default App
+export default connect (
+  (state) => ({ user: state.user })
+) (App)

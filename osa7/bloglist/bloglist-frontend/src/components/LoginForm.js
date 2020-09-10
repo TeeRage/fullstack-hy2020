@@ -1,29 +1,38 @@
-
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { loginUser, loadUser } from '../reducers/userReducer'
 
 const LoginForm = (props) => {
 
-  const [username, setUsername] = useState(props.username)
-  const [password, setPassword] = useState(props.password)
+  //Sisäänkirjautuminen
+  const login = async (event) => {
+
+    event.preventDefault()
+
+    const user = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    }
+    event.target.username.value = ''
+    event.target.password.value = ''
+
+    await props.loginUser(user)
+  }
 
   return (
     <div>
       <h2>login to application</h2>
-      <form onSubmit={props.handleLogin}>
+      <form onSubmit={login}>
         <div>
             username
           <input
-            id='username'
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
+            name='username'
           />
         </div>
         <div>
             password
           <input
-            id='password'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
+            name='password'
           />
         </div>
         <button id='login'>login</button>
@@ -32,4 +41,7 @@ const LoginForm = (props) => {
   )
 }
 
-export default LoginForm
+export default connect(
+  null,
+  { loginUser, loadUser },
+)(LoginForm)

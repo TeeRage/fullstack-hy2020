@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 //import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
-const BlogList = (props) => {
+const BlogList = ({ user }) => {
 
   const [visible, setVisible] = useState(false)
   const label = visible ? 'hide' : 'view'
@@ -53,7 +54,7 @@ const BlogList = (props) => {
                 <button onClick={() => like(blog.id)}>like</button>
               </div>
               <div>{blog.user.name}</div>
-              {props.user.username===blog.user.username&&
+              {user.username===blog.user.username&&
               <button onClick={() => remove(blog.id)}>remove</button>}
             </div>
           )}
@@ -63,4 +64,6 @@ const BlogList = (props) => {
   )
 }
 
-export default BlogList
+export default connect (
+  (state) => ({ user: state.user })
+) (BlogList)
