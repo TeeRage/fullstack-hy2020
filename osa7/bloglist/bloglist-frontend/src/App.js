@@ -1,58 +1,80 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { connect } from 'react-redux'
-
-import BlogList from './components/BlogList'
-import Notification from './components/Notification'
-import Togglable from './components/Togglable'
-import NewBlog from './components/NewBlog'
-import LoginForm from './components/LoginForm'
+import { BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  Link,
+  useHistory
+} from 'react-router-dom'
 
 import { initializeBlogs } from './reducers/blogReducer'
 import { loadUser, logoutUser } from './reducers/userReducer'
+import { initializeUsers } from './reducers/usersReducer'
 
-const App = ({ user }) => {
+import BlogList from './components/BlogList'
+import Blog from './components/Blog'
+import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
+import Users from './components/Users'
+
+const App = () => {
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
-  //Togglablelle ref tiedot
-  const blogFormRef = React.createRef()
+  let userObject = JSON.parse(localStorage.getItem('loggedBlogAppUser'))
+  const [user, setUser] = useState(userObject)
 
-  //Haetaan blogit Redux storesta
-  useEffect(() => {
+  const login = (user) => {
+    setUser(user)
+  }
+
+  //Haetaan blogit ja kirjautunut käyttäjä Redux storesta
+  useEffect( () => {
     dispatch(initializeBlogs())
-  }, [dispatch])
-
-  //Ladataan Redux storesta kirjautuneen käyttäjän tiedot
-  useEffect(() => {
+    dispatch(initializeUsers())
     dispatch(loadUser())
   }, [dispatch])
 
   //Käyttäjän uloskirjautuminen
   const handleLogout = () => {
     dispatch(logoutUser())
-  }
-
-  //Näytetään kirjautumislomake, jos ei ole kirjautunutta käyttäjää
-  if ( !user ) {
-    return (
-      <LoginForm/>
-    )
+    setUser(null)
+    history.push('/')
   }
 
   return (
     <div>
-      <h2>blogs</h2>
-      <Notification />
-      <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-      <Togglable buttonLabel='create new blog'  ref={blogFormRef}>
-        <NewBlog />
-      </Togglable>
-      <BlogList/>
+      <div>
+        {user
+          ?
+          <em>
+            <Link to="/">Blogs</Link>
+            <Link to="/users">Users</Link>
+            {user} logged in <button onClick={handleLogout}>logout</button></em>
+          : null
+        }
+      </div>
+      <h1>Blogilistasovellus</h1>
+      <Notification/>
+      <Switch>
+        <Route path="/blogs/:id">
+          <Blog />
+        </Route>
+        <Route path="/users">
+          <Users/>
+        </Route>
+        <Route path="/login">
+          <LoginForm onLogin={login} />
+        </Route>
+        <Route exact path="/">
+          {user
+            ? <BlogList /> : <Redirect to="/login" />}
+        </Route>
+      </Switch>
     </div>
   )
 }
 
-export default connect (
-  (state) => ({ user: state.user })
-) (App)
+export default App

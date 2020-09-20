@@ -1,12 +1,11 @@
 import axios from 'axios'
-import storage from '../utils/storage'
 
 //const baseUrl = 'http://localhost:3001/api/blogs'
 const baseUrl = '/api/blogs'
 
 const getConfig = () => {
   return {
-    headers: { Authorization: `bearer ${storage.loadUser().token}` }
+    headers: { Authorization: `bearer ${localStorage.token}` }
   }
 }
 

@@ -6,7 +6,7 @@ const byLikes = (b1, b2) => b2.likes - b1.likes
 const reducer = (state = [], action) => {
   //console.log('action', action)
   switch (action.type) {
-  case 'INIT':
+  case 'INIT_BLOGS':
     return action.data.sort(byLikes)
   case 'CREATE':
     return [...state, action.data]
@@ -24,7 +24,7 @@ export const initializeBlogs = () => {
   return async dispatch => {
     const data = await blogService.getAll()
     dispatch({
-      type: 'INIT',
+      type: 'INIT_BLOGS',
       data
     })
   }

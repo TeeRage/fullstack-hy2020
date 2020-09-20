@@ -1,69 +1,44 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { connect } from 'react-redux'
-//import { likeBlog, removeBlog } from '../reducers/blogReducer'
-import { setNotification } from '../reducers/notificationReducer'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-const BlogList = ({ user }) => {
+import Togglable from './Togglable'
+import NewBlog from './NewBlog'
 
-  const [visible, setVisible] = useState(false)
-  const label = visible ? 'hide' : 'view'
+const BlogList = () => {
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
+  //Näytettävät blogit
   const blogs = useSelector(state => {
     return state.blogs
   })
 
-  const dispatch = useDispatch()
-
-  //Blogista tykkääminen (+1 likes), KESKEN
-  const like = (id) => {
-    const toLike = blogs.find(b => b.id === id)
-    //dispatch(likeBlog(toLike))
-    dispatch(setNotification(`Tykkäsit blogista '${toLike.title}'`, 5))
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    borderWidth: 1,
+    marginBottom: 5,
+    marginTop: 5
   }
 
-  //Blogin poistaminen, KESKEN
-  const remove = async (id) => {
-    if (window.confirm('Are you sure that you want to delete this blog?')) {
-      const toRemove = blogs.find(b => b.id === id)
-      //dispatch(removeBlog(id))
-      dispatch(setNotification(`Blogi '${toRemove.title}' on poistettu`, 5))
-    }
-  }
+  //Togglablelle ref tiedot
+  const blogFormRef = React.createRef()
 
   return (
     <div>
-      <button onClick={() => setVisible(!visible)}>{label}</button>
+      <Togglable buttonLabel='create new blog'  ref={blogFormRef}>
+        <NewBlog />
+      </Togglable>
       {blogs.map(blog =>
         <div key={blog.id} style={blogStyle} className='blog'>
           <div>
-            <i>{blog.title}</i> by {blog.author}
+            <Link to={`/blogs/${blog.id}`}>
+              {blog.title}
+            </Link>
           </div>
-          {visible&&(
-            <div>
-              <div>{blog.url}</div>
-              <div>likes {blog.likes}
-                <button onClick={() => like(blog.id)}>like</button>
-              </div>
-              <div>{blog.user.name}</div>
-              {user.username===blog.user.username&&
-              <button onClick={() => remove(blog.id)}>remove</button>}
-            </div>
-          )}
         </div>
       )}
     </div>
   )
 }
 
-export default connect (
-  (state) => ({ user: state.user })
-) (BlogList)
+export default BlogList

@@ -1,11 +1,14 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loginUser, loadUser } from '../reducers/userReducer'
+import { loginUser } from '../reducers/userReducer'
 
 const LoginForm = (props) => {
 
+  const history = useHistory()
+
   //Sisäänkirjautuminen
-  const login = async (event) => {
+  const loginClick = (event) => {
 
     event.preventDefault()
 
@@ -13,16 +16,19 @@ const LoginForm = (props) => {
       username: event.target.username.value,
       password: event.target.password.value,
     }
+
     event.target.username.value = ''
     event.target.password.value = ''
 
-    await props.loginUser(user)
+    props.loginUser(user)
+    props.onLogin(user.username)
+    history.push('/') //Siirrytään osoitteen / komponenttiin
   }
 
   return (
     <div>
       <h2>login to application</h2>
-      <form onSubmit={login}>
+      <form onSubmit={loginClick}>
         <div>
             username
           <input
@@ -43,5 +49,5 @@ const LoginForm = (props) => {
 
 export default connect(
   null,
-  { loginUser, loadUser },
+  { loginUser },
 )(LoginForm)
