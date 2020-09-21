@@ -11,6 +11,10 @@ const User = ({ users, blogs }) => {
   const user =  users.find(u => u.id === id)
   const blogsByUser = blogs.filter(blog => blog.user.username === user.username)
 
+  if (!user) {
+    return null
+  }
+
   return (
     <div>
       <h1>{user.name}</h1>

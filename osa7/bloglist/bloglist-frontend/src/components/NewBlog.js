@@ -3,6 +3,11 @@ import { connect } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
+import {
+  TextField,
+  Button
+} from '@material-ui/core'
+
 const NewBlog = (props) => {
 
   //Uuden blogin lisääminen
@@ -25,25 +30,26 @@ const NewBlog = (props) => {
 
   return (
     <div>
-      <h2>create new</h2>
+      <h2>Lisää uusi blogi</h2>
       <form onSubmit={addNewBlog}>
         <div>
-          author
-          <input name='author'/>
+          <TextField label='Kirjoittaja' name='author' />
         </div>
         <div>
-          title
-          <input
-            name='title'
-          />
+          <TextField label='Otsikko' name='title' />
         </div>
         <div>
-          url
-          <input
-            name='url'
-          />
+          <TextField label='www-sivu' name='url' />
         </div>
-        <button id="create">create</button>
+        <Button
+          variant='contained'
+          color='secondary'
+          size='small'
+          type='submit'
+          id="create"
+        >
+          Tallenna
+        </Button>
       </form>
     </div>
   )

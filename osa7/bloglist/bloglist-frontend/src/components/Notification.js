@@ -3,6 +3,7 @@
 */
 import React from 'react'
 import { connect } from 'react-redux'
+import { Alert } from '@material-ui/lab'
 
 const Notification = ({ notification }) => {
 
@@ -10,15 +11,13 @@ const Notification = ({ notification }) => {
     return null
   }
 
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1
-  }
-
   return (
-    <div style={style}>
-      {notification}
+    <div>
+      {(notification &&
+        <Alert severity="success">
+          {notification}
+        </Alert>
+      )}
     </div>
   )
 }

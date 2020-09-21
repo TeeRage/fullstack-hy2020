@@ -4,6 +4,7 @@
 import React from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { useParams,useHistory } from 'react-router-dom'
+import { Button } from '@material-ui/core'
 
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -31,14 +32,32 @@ const Blog = ({ blogs, userInfo }) => {
     }
   }
 
+  if (!blogFound) {
+    return null
+  }
+
   return (
     <div>
-      <h2>{blogFound.title} by <i>{blogFound.author}</i> </h2>
-      <p>{blogFound.likes} likes <button onClick={() => like()}>like</button></p>
+      <h2>{blogFound.title}, kirjoittanut <i>{blogFound.author}</i> </h2>
+      <p>{blogFound.likes} tykkäystä
+        <Button
+          variant='outlined'
+          color='secondary'
+          size='small'
+          onClick={() => like()}
+        >
+          Tykkää
+        </Button></p>
       <p>{blogFound.url}</p>
-      <p>Added by {blogFound.user.name}</p>
+      <p>Lisännyt {blogFound.user.name}</p>
       {userInfo.user.username===blogFound.user.username&&
-          <button onClick={() => remove()}>remove</button>}
+          <Button
+            variant='outlined'
+            color='secondary'
+            onClick={() => remove()}
+          >
+            Poista
+          </Button>}
     </div>
   )
 }

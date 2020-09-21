@@ -3,6 +3,11 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginUser } from '../reducers/userReducer'
 
+import {
+  TextField,
+  Button
+} from '@material-ui/core'
+
 const LoginForm = (props) => {
 
   const history = useHistory()
@@ -27,21 +32,17 @@ const LoginForm = (props) => {
 
   return (
     <div>
-      <h2>login to application</h2>
+      <h2>Sisäänkirjautuminen</h2>
       <form onSubmit={loginClick}>
         <div>
-            username
-          <input
-            name='username'
-          />
+          <TextField label='Käyttäjänimi' name='username' />
         </div>
         <div>
-            password
-          <input
-            name='password'
-          />
+          <TextField label='Salasana' type='password' name='password'/>
         </div>
-        <button id='login'>login</button>
+        <Button variant='contained' color='primary' type='submit'>
+          Kirjaudu
+        </Button>
       </form>
     </div>
   )

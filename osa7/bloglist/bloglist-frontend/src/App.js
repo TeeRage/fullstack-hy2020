@@ -7,6 +7,12 @@ import {
   Link,
   useHistory
 } from 'react-router-dom'
+import {
+  Container,
+  Button,
+  AppBar,
+  Toolbar
+} from '@material-ui/core'
 
 import { initializeBlogs } from './reducers/blogReducer'
 import { loadUser, logoutUser } from './reducers/userReducer'
@@ -46,38 +52,52 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Container>
       <div>
         {user
           ?
           <em>
-            <Link to="/">Blogs</Link>
-            <Link to="/users">Users</Link>
-            {user} logged in <button onClick={handleLogout}>logout</button></em>
+            <AppBar position="fixed">
+              <Toolbar>
+                <Button color="inherit" component={Link} to="/">
+                  Blogit
+                </Button>
+                <Button color="inherit" component={Link} to="/users">
+                  Käyttäjät
+                </Button>
+                <em style={{ flex: 1 }}>
+                  {user} kirjautunut
+                </em>
+                <Button color="inherit" onClick={handleLogout}>
+                  Kirjaudu ulos
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </em>
           : null
         }
+        <h1>Blogilistasovellus</h1>
+        <Notification/>
+        <Switch>
+          <Route path="/blogs/:id">
+            <Blog />
+          </Route>
+          <Route path="/users/:id">
+            <User />
+          </Route>
+          <Route path="/users">
+            <Users/>
+          </Route>
+          <Route path="/login">
+            <LoginForm onLogin={login} />
+          </Route>
+          <Route exact path="/">
+            {user
+              ? <BlogList /> : <Redirect to="/login" />}
+          </Route>
+        </Switch>
       </div>
-      <h1>Blogilistasovellus</h1>
-      <Notification/>
-      <Switch>
-        <Route path="/blogs/:id">
-          <Blog />
-        </Route>
-        <Route path="/users/:id">
-          <User />
-        </Route>
-        <Route path="/users">
-          <Users/>
-        </Route>
-        <Route path="/login">
-          <LoginForm onLogin={login} />
-        </Route>
-        <Route exact path="/">
-          {user
-            ? <BlogList /> : <Redirect to="/login" />}
-        </Route>
-      </Switch>
-    </div>
+    </Container>
   )
 }
 
