@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams,useHistory } from 'react-router-dom'
 
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -11,6 +11,7 @@ import { setNotification } from '../reducers/notificationReducer'
 const Blog = ({ blogs, userInfo }) => {
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const id = useParams().id
   const blogFound =  blogs.find(a => a.id === id)
@@ -24,8 +25,9 @@ const Blog = ({ blogs, userInfo }) => {
   //Blogin poistaminen, KESKEN
   const remove = async () => {
     if (window.confirm('Are you sure that you want to delete this blog?')) {
-      //dispatch(removeBlog(blogFound.id))
+      dispatch(removeBlog(blogFound.id))
       dispatch(setNotification(`Blogi '${blogFound.title}' on poistettu`, 5))
+      history.push('/')
     }
   }
 

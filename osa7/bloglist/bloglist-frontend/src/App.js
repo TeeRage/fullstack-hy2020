@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { BrowserRouter as Router,
+import {
   Switch,
   Route,
   Redirect,
@@ -17,6 +17,7 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Users from './components/Users'
+import User from './components/User'
 
 const App = () => {
 
@@ -61,6 +62,9 @@ const App = () => {
       <Switch>
         <Route path="/blogs/:id">
           <Blog />
+        </Route>
+        <Route path="/users/:id">
+          <User />
         </Route>
         <Route path="/users">
           <Users/>
