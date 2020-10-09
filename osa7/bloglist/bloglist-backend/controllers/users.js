@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
 
+//Hae käyttäjät tietokannasta
 router.get('/', async (request, response) => {
   const users = await User
     .find({})
@@ -10,6 +11,7 @@ router.get('/', async (request, response) => {
   response.json(users.map(u => u.toJSON()))
 })
 
+//Lisää uusi käyttäjä
 router.post('/', async (request, response) => {
   const { password, name, username } = request.body
 
