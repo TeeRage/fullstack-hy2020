@@ -1,3 +1,6 @@
+/**
+ * Lomake uuden blogin luomista varten.
+ */
 import React from 'react'
 import { connect } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
@@ -24,7 +27,7 @@ const NewBlog = (props) => {
     event.target.title.value = ''
     event.target.url.value = ''
 
-    props.setNotification(`Lisäsit blogin '${content.title}'`, 5)
+    props.setNotification(`Lisäsit blogin '${content.title}'`, 'success', 5)
     props.createBlog(content)
   }
 

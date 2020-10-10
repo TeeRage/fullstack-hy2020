@@ -1,9 +1,10 @@
 /**
  * Yksittäisen blogin tietojen näyttäminen.
+ * Kuka vain voi tykätä blogista, mutta "poista" painike näkyy vain blogin lisänneelle käyttäjälle.
  */
 import React from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { useParams,useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
@@ -20,14 +21,14 @@ const Blog = ({ blogs, userInfo }) => {
   //Blogista tykkääminen (+1 likes), KESKEN
   const like = () => {
     dispatch(likeBlog(blogFound))
-    dispatch(setNotification(`Tykkäsit blogista '${blogFound.title}'`, 5))
+    dispatch(setNotification(`Tykkäsit blogista '${blogFound.title}'`, 'success', 5))
   }
 
   //Blogin poistaminen, KESKEN
   const remove = async () => {
     if (window.confirm('Are you sure that you want to delete this blog?')) {
       dispatch(removeBlog(blogFound.id))
-      dispatch(setNotification(`Blogi '${blogFound.title}' on poistettu`, 5))
+      dispatch(setNotification(`Blogi '${blogFound.title}' on poistettu`,'success', 5))
       history.push('/')
     }
   }

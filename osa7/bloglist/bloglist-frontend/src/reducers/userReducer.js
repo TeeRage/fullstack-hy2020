@@ -1,3 +1,6 @@
+/**
+ * Reducer yksittäisen sisäänkirjautuneen käyttäjän tietojen tallentamiseen.
+ */
 import loginService from '../services/login'
 
 const storageKey = 'loggedBlogAppUser'
@@ -11,7 +14,7 @@ const userReducer = (state = initialState, action) => {
 
   case 'SAVE_USER':
     localStorage.setItem(storageKey, JSON.stringify(action.data.username))
-    //console.log('Testi', JSON.parse(localStorage.getItem(storageKey)))
+    console.log('Onnistunut sisäänkirjautuminen: ', JSON.parse(localStorage.getItem(storageKey)))
     return {
       loggedIn: true,
       user: action.data
@@ -34,12 +37,23 @@ const userReducer = (state = initialState, action) => {
 
 //Sisäänkirjautuminen
 export const loginUser = (user) => {
+
   return async dispatch => {
-    const data = await loginService.login(user)
-    dispatch({
-      type: 'SAVE_USER',
-      data
-    })
+    try{
+      const data = await loginService.login(user)
+      if(data.statusCode === 401){
+        throw Error('rejected')
+      }
+      else{
+        dispatch({
+          type: 'SAVE_USER',
+          data
+        })
+      }
+    }
+    catch(exception){
+      console.log(exception)
+    }
   }
 }
 

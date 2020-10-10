@@ -1,4 +1,7 @@
-/* eslint-disable no-case-declarations */
+/**
+ * Reducer blogitoiminnoille:
+ * Blogien hakeminen tietopkannasta, uuden blogin luominen, blogista tykkääminen ja blogin poistaminen.
+ */
 import blogService from '../services/blogs'
 
 const byLikes = (b1, b2) => b2.likes - b1.likes
@@ -11,8 +14,7 @@ const reducer = (state = [], action) => {
   case 'CREATE':
     return [...state, action.data]
   case 'LIKE':
-    const liked = action.data
-    return state.map(b => b.id===liked.id ? liked : b).sort(byLikes)
+    return state.map(b => b.id===action.data.id ? action.data : b).sort(byLikes)
   case 'REMOVE':
     return [...state, action.data]
   default:
@@ -20,6 +22,7 @@ const reducer = (state = [], action) => {
   }
 }
 
+//Blogien hakeminen tietokannasta
 export const initializeBlogs = () => {
   return async dispatch => {
     const data = await blogService.getAll()
@@ -30,6 +33,7 @@ export const initializeBlogs = () => {
   }
 }
 
+//Uuden blogin luominen
 export const createBlog = (content) => {
   return async dispatch => {
     const data = await blogService.create(content)
@@ -40,6 +44,8 @@ export const createBlog = (content) => {
   }
 }
 
+//Blogista tykkääminen
+//Tämä vaatii hieman korjailua vielä!
 export const likeBlog = (blog) => {
   return async dispatch => {
     const blogToLike = { ...blog, likes: blog.likes + 1 }
@@ -51,7 +57,8 @@ export const likeBlog = (blog) => {
   }
 }
 
-//Tämä saattaa vaatia hieman korjailua vielä!
+//Blogin poistaminen
+//Tämä vaatii hieman korjailua vielä!
 export const removeBlog = (id) => {
   return async dispatch => {
     const data = await blogService.remove(id)

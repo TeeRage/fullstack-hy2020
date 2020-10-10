@@ -14,9 +14,9 @@ const Notification = ({ notification }) => {
   return (
     <div>
       {(notification &&
-        <Alert severity="success">
-          {notification}
-        </Alert>
+         <Alert severity={notification.notifType}>
+           {notification.notifMessage}
+         </Alert>
       )}
     </div>
   )

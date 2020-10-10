@@ -1,3 +1,7 @@
+/**
+ * Lista tietokannan blogeista.
+ * Blogia voi klikata, jolloin siirrytään kyseisen blogin tiedot näyttävälle sivulle.
+ */
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'

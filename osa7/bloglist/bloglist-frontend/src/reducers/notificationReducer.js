@@ -1,10 +1,16 @@
-//Uuden ilmoituksen näyttäminen, kestää sekunneissa (time) annetun ajan
+/**
+ * Reducer Uuden ilmoituksen näyttämiselle, kestää sekunneissa (time) annetun ajan.
+ * Ilmoituksen ulkoasu määräytyy annetun tyypin (error, succes jne.) mukaan.
+ */
 const notificationReducer = (state = null, action) => {
 
   switch (action.type) {
 
   case 'SET_NOTIFICATION':
-    return action.content
+    return {
+      notifMessage: action.notifMessage,
+      notifType: action.notifType
+    }
 
   case 'CLEAR_NOTIFICATION':
     return null
@@ -16,13 +22,14 @@ const notificationReducer = (state = null, action) => {
 
 let timeoutId
 
-export const setNotification = (content, time) => {
+export const setNotification = (notifMessage, notifType, time) => {
 
   return async (dispatch) => {
 
     dispatch({
       type: 'SET_NOTIFICATION',
-      content
+      notifMessage,
+      notifType
     })
 
     if (timeoutId) {

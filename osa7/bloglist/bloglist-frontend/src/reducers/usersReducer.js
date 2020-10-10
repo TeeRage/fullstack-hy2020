@@ -1,4 +1,6 @@
-/* eslint-disable no-case-declarations */
+/**
+ * Reducer käyttäjien lataamiseen tietokannasta.
+ */
 import userService from '../services/users'
 
 const reducer = (state = [], action) => {

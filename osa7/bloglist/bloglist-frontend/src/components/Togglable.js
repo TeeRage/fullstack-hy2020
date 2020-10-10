@@ -1,3 +1,6 @@
+/**
+ * Togglable, jota voi käyttää lapsikomponenttien piilottamiseen ja esiintuomiseen.
+ */
 import React, { useState, useImperativeHandle } from 'react'
 import {
   Button
