@@ -3,8 +3,9 @@
  */
 import loginService from '../services/login'
 
-const storageKey = 'loggedBlogAppUser'
-let user = JSON.parse(localStorage.getItem(storageKey))
+const storageKeyUserName = 'loggedBlogAppUserName'
+const storageKeyUserToken = 'loggedBlogAppUserToken'
+let user = JSON.parse(localStorage.getItem(storageKeyUserName))
 
 const initialState = user ? { loggedIn: true, user } : {}
 
@@ -13,15 +14,19 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
 
   case 'SAVE_USER':
-    localStorage.setItem(storageKey, JSON.stringify(action.data.username))
-    console.log('Onnistunut sisäänkirjautuminen: ', JSON.parse(localStorage.getItem(storageKey)))
+    localStorage.setItem(storageKeyUserName, JSON.stringify(action.data.username))
+    localStorage.setItem(storageKeyUserToken, JSON.stringify(action.data.token))
+    console.log('Onnistunut sisäänkirjautuminen: ', JSON.parse(localStorage.getItem(storageKeyUserName)))
+    console.log('Token: ', JSON.parse(localStorage.getItem(storageKeyUserToken)))
+    //console.log('Onnistunut sisäänkirjautuminen: ', action.data)
     return {
       loggedIn: true,
       user: action.data
     }
 
   case 'LOGOUT_USER':
-    localStorage.removeItem(storageKey)
+    localStorage.removeItem(storageKeyUserName)
+    localStorage.removeItem(storageKeyUserToken)
     return {
       loggedIn: false,
       user: {}

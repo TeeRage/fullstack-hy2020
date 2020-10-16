@@ -38,13 +38,13 @@ const LoginForm = (props) => {
         await props.loginUser(user)
 
         //Jos tunnistus onnistui, local storagessa on käyttäjä
-        let userObject = JSON.parse(localStorage.getItem('loggedBlogAppUser'))
+        let userName = JSON.parse(localStorage.getItem('loggedBlogAppUserName'))
 
-        if(!userObject){
+        if(!userName){
           dispatch(setNotification('Käyttäjätunnukset ovat virheelliset', 'error', 5))
         }
         else{
-          await props.onLogin(userObject) //tallennetaan käyttäjänimi useStateen
+          await props.onLogin(userName) //tallennetaan käyttäjänimi useStateen
           history.push('/') //Siirrytään osoitteen / komponenttiin
         }
       }

@@ -30,7 +30,7 @@ const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  let userObject = JSON.parse(localStorage.getItem('loggedBlogAppUser'))
+  let userObject = JSON.parse(localStorage.getItem('loggedBlogAppUserName'))
   const [user, setUser] = useState(userObject)
 
   const login = (user) => {
