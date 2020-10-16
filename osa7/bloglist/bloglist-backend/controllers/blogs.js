@@ -3,6 +3,15 @@ const jwt = require('jsonwebtoken')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
+//Apufunktio, joka hakee tokenin otsikosta
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
+
 //Hae kaikki blogit
 router.get('/', async (request, response) => {
   const blogs = await Blog
@@ -43,6 +52,7 @@ router.put('/:id', async (request, response) => {
   console.log('\n\nPäivitettävän blogin tiedot:', request.body)
   const blog = request.body
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+  console.log('\n\nPäivitetty:', request.body)
   response.json(updatedBlog.toJSON())
 })
 
@@ -79,5 +89,7 @@ router.post('/', async (request, response) => {
   await user.save()
   response.status(201).json(savedBlog)
 })
+
+
 
 module.exports = router
